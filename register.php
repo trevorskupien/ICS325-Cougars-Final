@@ -16,12 +16,7 @@
 		</div>
 		<div class="content-box">
 		
-			<h1 class="form-title">
-				<span class="red">Photo A</span>
-				<span class="blue">B</span>
-				<span class="yellow">C</span>
-				<span class="green">D</span>
-			</h1>
+			<h1 class="section-title">Register</h1>
 			
 			<form class="login-form" method="POST" enctype="multipart/form-data">
 				<label class="form-label" for="name">Name</label>

@@ -17,10 +17,7 @@ body{
 	background-color: var(--theme-secondary);
 }
 
-.form-title{
-	text-align: center;
-}
-.form-title, .title{
+.title{
 	font-size: 0; 
 	& span{
 		font-size: 32px;
@@ -51,7 +48,7 @@ body{
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	padding: 50px;
+	padding: 0px 50px 50px;
 }
 
 .post-header{
