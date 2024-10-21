@@ -20,7 +20,7 @@
 				<div class="post-header">
 					<input id="title" class="form-text" type="text" name="title" placeholder="Post Title"></input>
 					
-					<input id="date" class="form-date" type="text" name="date" placeholder="<?php echo date("d-m-Y") ?>" readonly="readonly"></input>
+					<input id="date" class="form-date" type="text" placeholder="<?php echo date("d-m-Y") ?>" readonly="readonly"></input>
 					
 					<input id="visibility" class="hidden" name="public" type="checkbox"></input>
 					<label id="visibility-label" for="visibility" class="form-toggle"></label>
