@@ -18,6 +18,7 @@ body{
 }
 
 .title{
+	display: inline;
 	font-size: 0; 
 	& span{
 		font-size: 32px;
@@ -95,21 +96,25 @@ body{
 	width: max-content;
 	height: max-content;
 	text-align: center;
+	transition: .2s;
 }
 
 .form-button:hover{
 	background-color: var(--selected-green);
+	text-decoration: underline;
+	transition: .2s;
 }
+
 
 input + .form-toggle{
 	content: "Private";
 	background-color: var(--red);
-	transition: .1s;
+	transition: .2s;
 }
 
 input:checked + .form-toggle{
 	background-color: var(--light-green);
-	transition: .1s;
+	transition: .2s;
 }
 
 input + .form-toggle::before{
@@ -118,6 +123,16 @@ input + .form-toggle::before{
 
 input:checked + .form-toggle::before{
 	content: "Public";
+}
+
+#blogs-table-container{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	padding: 10px;
+	min-width: 1200px;
+	background-color: white;
+	border: 1px solid grey;
 }
 
 #footer{
@@ -138,4 +153,16 @@ input:checked + .form-toggle::before{
 
 #visibility-label{
 	width: 55px;
+}
+
+#header{
+	display: flex;
+}
+#account-box{
+	margin-left: auto;
+	gap: 0.67em;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
 }
