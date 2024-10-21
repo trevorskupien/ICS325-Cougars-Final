@@ -1,0 +1,144 @@
+*{
+	font-family: "Segoe UI", sans-serif;
+}
+
+:root {
+    --red: #d13438;
+	--blue: #0078d4;
+	--yellow: #ffb900;
+	--green: #107c10;
+	--light-green: #AEDD94;
+	--selected-green: #89DB59;
+	--theme-primary: #91E4FB;
+	--theme-secondary: #D4E3FC;
+}
+
+body{
+	background-color: var(--theme-secondary);
+}
+
+.form-title{
+	text-align: center;
+}
+.form-title, .title{
+	font-size: 0; 
+	& span{
+		font-size: 32px;
+	}
+}
+
+.section-title{
+	margin-left: 50px;
+	color: var(--yellow);
+}
+
+.hidden{ display: none; }
+.red{ color: var(--red); }
+.blue{ color: var(--blue); }
+.yellow{ color: var(--yellow); }
+.green{ color: var(--green); }
+
+.content-box{
+	background-color: var(--theme-primary);
+	border: 2px solid;
+	margin-top: 100px;
+	width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.login-form{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 50px;
+}
+
+.post-header{
+	display: flex;
+	margin: 0px 50px;
+}
+
+.post-body{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+}
+
+.form-text{
+	min-width: 500px;
+	padding: 5px;
+	margin-bottom: 25px;
+}
+
+.form-date{
+	width: max-content;
+	padding: 5px;
+	margin-bottom: 25px;
+	font-size: 18px;
+	margin-right: 10px;
+	height: max-content;
+}
+
+.form-label,
+.form-text,
+.form-toggle{
+	font-size: 18px;
+	margin-right: 10px;
+	height: max-content;
+}
+
+.form-button, .form-toggle{
+	cursor: pointer;
+	user-select: none;
+	font-size: 18px;
+	padding: 5px 10px;
+	background-color: var(--light-green);
+	border: 1px solid;
+	width: max-content;
+	height: max-content;
+	text-align: center;
+}
+
+.form-button:hover{
+	background-color: var(--selected-green);
+}
+
+input + .form-toggle{
+	content: "Private";
+	background-color: var(--red);
+	transition: .1s;
+}
+
+input:checked + .form-toggle{
+	background-color: var(--light-green);
+	transition: .1s;
+}
+
+input + .form-toggle::before{
+	content: "Private";
+}
+
+input:checked + .form-toggle::before{
+	content: "Public";
+}
+
+#footer{
+	position: absolute;
+	bottom:0px;
+}
+
+#footer p{
+	padding: 0;
+	color: grey;
+}
+
+#post-content{
+	width: calc(100% - 8px);
+	height: 400px;
+	resize: none;
+}
+
+#visibility-label{
+	width: 55px;
+}
