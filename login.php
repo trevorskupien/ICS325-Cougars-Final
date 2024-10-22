@@ -30,15 +30,14 @@
 		<div class="content-box">
 		
 			<h1 class="section-title">Login</h1>
-			
-			<form class="login-form" method="post" enctype="multipart/form-data">
+			<form class="login-form" method="POST">
 				<label class="form-label" for="email">Email Address</label>
 				<input  class="form-text" type="text" id="email" name="email" required></input>
 
 				<label class="form-label" for="password">Password</label>
 				<input class="form-text" type="password" id="password" name="password" required></input>		
-				<input class="hidden" type="submit" name="submit" id="login"/>
-				<label for="login" class="form-button">Login</label>
+				<input class="hidden" type="submit" name="submit" id="post"/>
+				<label for="post" class="form-button">Login</label>
 			</form>
 		</div>
 		<div id="footer">

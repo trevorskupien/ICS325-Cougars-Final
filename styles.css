@@ -52,6 +52,12 @@ body{
 	padding: 0px 50px 50px;
 }
 
+#form-result{
+	margin-left: 50px;
+	margin-top: 0px;
+	margin-bottom: 5px;
+	font-weight: bold;	
+}
 .post-header{
 	display: flex;
 	margin: 0px 50px;
@@ -133,6 +139,10 @@ input:checked + .form-toggle::before{
 	min-width: 1200px;
 	background-color: white;
 	border: 1px solid grey;
+}
+
+table tr:nth-child(even) td{
+	background-color: #EaE9E8;
 }
 
 #footer{
