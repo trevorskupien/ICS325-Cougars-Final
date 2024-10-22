@@ -1,0 +1,74 @@
+<?php
+session_start();
+
+function registerUser($ffirst_name, $flast_name, $femail, $fpassword){
+	
+	include 'db.php';
+	$stmt = mysqli_stmt_init($db);
+	mysqli_stmt_prepare($stmt, "INSERT INTO users (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
+	mysqli_stmt_bind_param($stmt, "ssss", $femail, $ffirst_name, $flast_name, $fpassword);
+	$result = mysqli_stmt_execute($stmt);
+	
+	if($result){
+		return "Registration successful!";
+	}else{
+		return "Database error while registering.";
+	}
+	mysqli_close($db);
+}
+
+function loginUser($femail, $fpassword){
+	$user = getUser($femail);
+	if(!$user){
+		return false;
+	}
+	
+	if(strcmp($user["password"], $fpassword)){
+		return false;
+	}
+	
+	if(session_status() !== PHP_SESSION_ACTIVE){
+		session_start();
+	}
+	
+	$_SESSION['account'] = $user;
+	return true;
+}
+
+function getUser($femail){
+	include 'db.php';
+	$stmt = mysqli_stmt_init($db);
+	mysqli_stmt_prepare($stmt, "SELECT * from users WHERE email = ? LIMIT 1");
+	mysqli_stmt_bind_param($stmt, "s", $femail);
+	mysqli_stmt_execute($stmt);
+	$result = mysqli_stmt_get_result($stmt);
+	mysqli_close($db);
+	
+	if(!$result)
+		return null;
+	
+	$user = mysqli_fetch_assoc($result);
+	$first_name = $user["first_name"];
+	$last_name = $user["last_name"];
+	$email = $user["email"];
+	$password = $user["password"];
+	
+	return array(
+		"email" => $email,
+		"first_name" => $first_name,
+		"last_name" => $last_name,
+		"password" => $password,
+	);
+}
+
+function logout(){
+	unset($_SESSION['account']);
+	session_destroy();
+}
+
+function getWelcomeText(){
+	if(isset($_SESSION['account'])){
+		return "Welcome back, " . $_SESSION['account']['first_name'] . "!";
+	}
+	return "Not signed in.";
+}
