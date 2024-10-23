@@ -1,8 +1,6 @@
 <?php
 session_start();
-
 function registerUser($ffirst_name, $flast_name, $femail, $fpassword){
-	
 	include 'db.php';
 	$stmt = mysqli_stmt_init($db);
 	mysqli_stmt_prepare($stmt, "INSERT INTO users (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
@@ -55,10 +53,19 @@ function getUser($femail){
 	
 	return array(
 		"email" => $email,
+		"name" => $first_name . " " . $last_name,
 		"first_name" => $first_name,
 		"last_name" => $last_name,
 		"password" => $password,
 	);
+}
+
+function getSessionAccount(){
+	if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['account'])){
+		return $_SESSION['account'];
+	}else{
+		return null;
+	}
 }
 
 function logout(){
@@ -67,7 +74,7 @@ function logout(){
 }
 
 function getWelcomeText(){
-	if(isset($_SESSION['account'])){
+	if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['account'])){
 		return "Welcome back, " . $_SESSION['account']['first_name'] . "!";
 	}
 	return "Not signed in.";

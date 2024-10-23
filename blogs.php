@@ -2,10 +2,8 @@
 <html>
 	<head>
 		<title>Photo ABCD</title>
-		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/2.1.7/css/dataTables.dataTables.css" />
 		<link rel="stylesheet" type="text/css" href="styles.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-		<script src="https://cdn.datatables.net/2.1.7/js/dataTables.js"></script>
 	</head>
 	<body>
 	
@@ -21,56 +19,42 @@
 						<th>Author</th>
 						<th>Topic</th>
 						<th>Date Created</th>
-						<th>Comments</th>
-						<th>Views</th>
 						</tr>
 					</thead>
 					<tbody>
 						<?php
-							//Build table from mySQL
-							$db = mysqli_connect("localhost", "root", "", "photo_cougars_db");
-							if(!$db){
-								die("Connnection to DB failed: " . mysqli_connect_error());
-							}
+							include_once "inc/blog_data.php";
+							include_once "inc/account.php";
 							
-							$blogs = mysqli_query($db, "SELECT * FROM blogs WHERE privacy_filter = 'public'");
+							$account = getSessionAccount();
+							$email = "";
+							if($account)
+								$email = $account["email"];
 							
-							if(mysqli_num_rows($blogs) > 0){
-								while($blog = mysqli_fetch_assoc($blogs)){
-									$id = $blog["blog_id"];
-									$title = $blog["title"];
-									$topic = $blog["description"];
-									$created = $blog["creation_date"];
-									$comments = 0; //TODO: temp
-									$views = 0; //TODO: temp
-									$email = $blog["creator_email"];
-									
-									//get user's display name from email address
-									$user = mysqli_query($db, "SELECT first_name, last_name FROM users WHERE email = '". $email . "' LIMIT 1");
-									$user_data = mysqli_fetch_assoc($user);
-									$name = $user_data["first_name"] . " " . $user_data["last_name"];
-									
-									//build table entry
-									printf("
-									<tr>
-										<td><a href='blog?id=%s'>%s</a></td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-										<td>%s</td>
-									</tr>
-									", $id, $title, $name, $topic, $created, $comments, $views);
+							$blogs = getUserBlogs($email);
+							
+							foreach($blogs as $blog){
+								$name = getUser($blog["creator_email"])["name"];
+
+								if($account && !strcmp($blog["creator_email"], $account["email"])){
+									$name = "<b>" . $name . "</b>";
 								}
+								
+								//build table entry
+								printf("
+								<tr>
+									<td><a href='blog?id=%s'>%s</a></td>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+								</tr>
+								", $blog["blog_id"], $blog["title"], $name, $blog["description"], $blog["creation_date"]);
 							}
-							
-							mysqli_close($db); 
 						?>
 					</tbody>
 
 				</table>
 			</div>
-			<script>$(document).ready(function() { let table = new DataTable('#blogs-table'); });</script>
 		</div>
 		<div id="footer">
 			<p>Fall 2024 ICS 325-50 Team Cougars</p>
