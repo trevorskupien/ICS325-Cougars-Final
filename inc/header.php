@@ -1,10 +1,12 @@
 <div id="header">
-	<h1 class="title">
-		<span class="red">Photo A</span>
-		<span class="blue">B</span>
-		<span class="yellow">C</span>
-		<span class="green">D</span>
-	</h1>
+	<a class="no-decoration" href="index.php">
+		<h1 class="title">
+			<span class="red">Photo A</span>
+			<span class="blue">B</span>
+			<span class="yellow">C</span>
+			<span class="green">D</span>
+		</h1>
+	</a>
 	<div id="account-box">
 		<p>
 			<?php
