@@ -42,7 +42,7 @@ function getUser($femail){
 	$result = mysqli_stmt_get_result($stmt);
 	mysqli_close($db);
 	
-	if(!$result)
+	if(!$result || mysqli_num_rows($result) === 0)
 		return null;
 	
 	$user = mysqli_fetch_assoc($result);

@@ -32,10 +32,9 @@
 	$name_tokens = explode(" ", $name);
 	$first_name = $name_tokens[0];
 	$last_name = $name_tokens[1];
-	
-	include "../inc/account.php";
+
 	registerUser($first_name, $last_name, $email, $password);
-	loginUser();
+	loginUser($email, $password);
 	
 	header('Location: ../index.php');
 ?>
