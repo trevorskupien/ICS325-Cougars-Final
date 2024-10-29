@@ -4,7 +4,7 @@ function registerUser($ffirst_name, $flast_name, $femail, $fpassword){
 	include 'db.php';
 	$stmt = mysqli_stmt_init($db);
 	mysqli_stmt_prepare($stmt, "INSERT INTO users (email, first_name, last_name, password) VALUES (?, ?, ?, ?)");
-	mysqli_stmt_bind_param($stmt, "ssss", $femail, $ffirst_name, $flast_name, $fpassword);
+	mysqli_stmt_bind_param($stmt, "ssss", $femail, $ffirst_name, $flast_name, password_hash($fpassword, PASSWORD_DEFAULT));
 	$result = mysqli_stmt_execute($stmt);
 	
 	if($result){
@@ -21,7 +21,7 @@ function loginUser($femail, $fpassword){
 		return false;
 	}
 	
-	if(strcmp($user["password"], $fpassword)){
+	if(password_verify($user["password"], $fpassword)){
 		return false;
 	}
 	
