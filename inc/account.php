@@ -21,7 +21,7 @@ function loginUser($femail, $fpassword){
 		return false;
 	}
 	
-	if(password_verify($user["password"], $fpassword)){
+	if(!password_verify($fpassword, $user["password"])){
 		return false;
 	}
 	

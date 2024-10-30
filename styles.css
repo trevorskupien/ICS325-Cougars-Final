@@ -112,6 +112,30 @@ body{
 	transition: .2s;
 }
 
+.blog-container{
+	display: inline-block;
+	border: 1px solid;
+	width: 350px;
+	margin: 5px;
+}
+
+.blog-image-container{
+	display: flex;
+	margin: auto;
+	aspect-ratio: 16 / 9;
+	background: gray;
+}
+
+.blog-image-container img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.blog-title{
+	text-align: center;
+	margin: auto;
+}
 
 input + .form-toggle{
 	content: "Private";
@@ -132,14 +156,14 @@ input:checked + .form-toggle::before{
 	content: "Public";
 }
 
-#blogs-table-container{
+#blogs-container{
 	margin-left: 50px;
 	margin-right: 50px;
 	margin-bottom: 50px;
-	padding: 10px;
-	min-width: 1200px;
+	max-width: 1465px;
 	background-color: white;
 	border: 1px solid grey;
+	padding: 5px;
 }
 
 table tr:nth-child(even) td{
@@ -147,7 +171,6 @@ table tr:nth-child(even) td{
 }
 
 #footer{
-	position: absolute;
 	bottom:0px;
 }
 
@@ -168,6 +191,9 @@ table tr:nth-child(even) td{
 
 #header{
 	display: flex;
+	width: 100%;
+    top: 0; 
+	background: var(--theme-secondary);
 }
 #account-box{
 	margin-left: auto;
@@ -179,6 +205,6 @@ table tr:nth-child(even) td{
 }
 
 .no-decoration{
+	color: black;
 	text-decoration: none;
-
 }
