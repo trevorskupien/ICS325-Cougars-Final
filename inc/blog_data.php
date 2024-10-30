@@ -50,4 +50,10 @@ function getUserBlogs($fauthor){
 	return $blogs;
 }
 
+function getBlogImage($blog){
+	if(!isset($blog["image"]) || !strcmp($blog["image"], ""))
+		return "default.png";
+	else
+		return $blog["image"];
+}
 ?>

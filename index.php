@@ -11,17 +11,7 @@
 		
 		<div class="content-box">
 			<h1 class="section-title">Blogs</h1>
-			<div id="blogs-table-container">
-				<table id="blogs-table">
-					<thead>
-						<tr>
-						<th>Title</th>
-						<th>Author</th>
-						<th>Topic</th>
-						<th>Date Created</th>
-						</tr>
-					</thead>
-					<tbody>
+			<div id="blogs-container">
 						<?php
 							include_once "inc/blog_data.php";
 							include_once "inc/account.php";
@@ -33,27 +23,31 @@
 							
 							$blogs = getUserBlogs($email);
 							
+
 							foreach($blogs as $blog){
 								$name = getUser($blog["creator_email"])["name"];
-
+								$private = "";
 								if($account && !strcmp($blog["creator_email"], $account["email"])){
-									$name = "<b>" . $name . "</b>";
+									$name = "You";
 								}
 								
-								//build table entry
+								if(!strcmp($blog["privacy_filter"], "private"))
+									$private = "(private)";
+								
+								//build blog entry
 								printf("
-								<tr>
-									<td><a href='blog?id=%s'>%s</a></td>
-									<td>%s</td>
-									<td>%s</td>
-									<td>%s</td>
-								</tr>
-								", $blog["blog_id"], $blog["title"], $name, $blog["description"], $blog["creation_date"]);
+								<div class='blog-container'>
+									<a class='no-decoration' href='blog?id=%s'>
+										<div class='blog-image-container'>
+											<img src='images/%s'></img>
+										</div>
+										<p class='blog-title'>%s</p>
+										<p class='blog-title'>By %s %s</p>
+									</a>
+								</div>",
+								$blog["blog_id"], getBlogImage($blog), $blog["title"], $name, $private);
 							}
 						?>
-					</tbody>
-
-				</table>
 			</div>
 		</div>
 		<div id="footer">
