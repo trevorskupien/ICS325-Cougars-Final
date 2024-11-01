@@ -42,7 +42,6 @@ body{
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px; 
     max-width: 90%; 
     box-sizing: border-box; 
     overflow-wrap: break-word; 
@@ -160,10 +159,12 @@ input:checked + .form-toggle::before{
 }
 
 #blogs-container{
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 	margin-left: 50px;
 	margin-right: 50px;
 	margin-bottom: 50px;
-	max-width: 1465px;
 	background-color: white;
 	border: 1px solid grey;
 	padding: 5px;
@@ -198,6 +199,7 @@ table tr:nth-child(even) td{
     top: 0; 
 	background: var(--theme-secondary);
 }
+
 #account-box{
 	margin-left: auto;
 	gap: 0.67em;
@@ -227,4 +229,24 @@ table tr:nth-child(even) td{
     color:black; 
     text-decoration: none; 
     font-weight: bold; 
+}
+
+#blog-content{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	background-color: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+
+.blog-image{
+	border: 1px solid;
+}
+
+.blog-image-large{
+	display: flex;
+	width: 50%;
+	margin: auto;
+	border: 1px solid;
 }
