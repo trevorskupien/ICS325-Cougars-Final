@@ -10,7 +10,15 @@
 	<?php include "inc/header.php"; ?>
 	
 	<div class="content-box">
-		<h1 class="section-title">Blogs</h1>
+	
+		<div class="section-header">
+			<h1 class="section-title">Blogs</h1>
+			<form action="post">
+				<input class="hidden" type="submit" id="newblog"/>
+				<label for="newblog" class="form-button">New Blog</label>
+			</form>
+		</div>
+		
 		<div id="blogs-container">
 			<?php
 				include_once "inc/blog_data.php";

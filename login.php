@@ -9,7 +9,7 @@
 	
 		<?php include "inc/header.php"; ?>
 		
-		<div class="content-box">
+		<div class="form-content-box">
 		
 			<h1 class="section-title">Login</h1>
 			<p id="form-result">

@@ -31,15 +31,11 @@
 	<div class="content-box">
 		<h1 class="section-title"><?php echo htmlspecialchars($blog["title"])?></h1>
 		<div id="blog-content">
-			<img class='blog-image-large' src='images/default.png'></img>
-			<p>By Author</p>
-			<p>Date: 1-1-2011</p>
-			<p>fdsfdsfds<br>gfsgfdgdf<br>fdsfgdsfdsdfds</p>
 			<?php
-				//echo "<img class='blog image' src='images/" . $image . "'></img>";
-				//echo "<p>By " . htmlspecialchars($author_name) . "</p>";
-				//echo "<p>Date: " . htmlspecialchars($blog["event_date"]) . "</p>";
-				//echo "<p>" . nl2br(htmlspecialchars($blog["description"])) . "</p>";
+				echo "<img class='blog-image-large' src='images/" . $image . "'></img>";
+				echo "<p>By " . htmlspecialchars($author_name) . "</p>";
+				echo "<p>Date: " . htmlspecialchars($blog["event_date"]) . "</p>";
+				echo "<p>" . nl2br(htmlspecialchars($blog["description"])) . "</p>";
 			?>
 		</div>
 	</div>

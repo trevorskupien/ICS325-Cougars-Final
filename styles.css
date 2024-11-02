@@ -47,6 +47,15 @@ body{
     overflow-wrap: break-word; 
 }
 
+.form-content-box {
+	background-color: var(--theme-primary);
+	border: 2px solid;
+	margin-top: 100px;
+	width: max-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .login-form{
 	display: flex;
 	flex-direction: column;
@@ -95,7 +104,7 @@ body{
 	height: max-content;
 }
 
-.form-button, .form-toggle{
+.form-button, .form-toggle, .form-button-inline{
 	cursor: pointer;
 	user-select: none;
 	font-size: 18px;
@@ -106,6 +115,10 @@ body{
 	height: max-content;
 	text-align: center;
 	transition: .2s;
+}
+
+.form-button-inline{
+	display: inline-block;
 }
 
 .form-button:hover{
@@ -139,6 +152,7 @@ body{
 	margin: auto;
 }
 
+
 input + .form-toggle{
 	content: "Private";
 	background-color: var(--red);
@@ -170,6 +184,15 @@ input:checked + .form-toggle::before{
 	padding: 5px;
 }
 
+#blogs-container::after{
+	content: '';
+	flex: auto;
+}
+
+#blogs-container > :nth-last-child(-n+3){
+	justify-content: flex-start;
+}
+
 table tr:nth-child(even) td{
 	background-color: #EaE9E8;
 }
@@ -185,7 +208,7 @@ table tr:nth-child(even) td{
 
 #post-content{
 	width: calc(100% - 8px);
-	height: 400px;
+	overflow:hidden;
 	resize: none;
 }
 
@@ -246,7 +269,21 @@ table tr:nth-child(even) td{
 
 .blog-image-large{
 	display: flex;
-	width: 50%;
+	height: 600px;
 	margin: auto;
 	border: 1px solid;
+}
+
+.form-button-container{
+	margin-bottom: 25px;
+	margin-right: 15px;
+}
+
+.section-header{
+	display:flex;
+	justify-content: space-between;
+}
+
+.section-header form{
+	margin: auto 50px auto 0;
 }
