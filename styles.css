@@ -42,10 +42,18 @@ body{
     margin-top: 100px;
     margin-left: auto;
     margin-right: auto;
-    padding: 20px; 
     max-width: 90%; 
     box-sizing: border-box; 
     overflow-wrap: break-word; 
+}
+
+.form-content-box {
+	background-color: var(--theme-primary);
+	border: 2px solid;
+	margin-top: 100px;
+	width: max-content;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .login-form{
@@ -96,7 +104,7 @@ body{
 	height: max-content;
 }
 
-.form-button, .form-toggle{
+.form-button, .form-toggle, .form-button-inline{
 	cursor: pointer;
 	user-select: none;
 	font-size: 18px;
@@ -107,6 +115,10 @@ body{
 	height: max-content;
 	text-align: center;
 	transition: .2s;
+}
+
+.form-button-inline{
+	display: inline-block;
 }
 
 .form-button:hover{
@@ -140,6 +152,7 @@ body{
 	margin: auto;
 }
 
+
 input + .form-toggle{
 	content: "Private";
 	background-color: var(--red);
@@ -160,13 +173,24 @@ input:checked + .form-toggle::before{
 }
 
 #blogs-container{
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
 	margin-left: 50px;
 	margin-right: 50px;
 	margin-bottom: 50px;
-	max-width: 1465px;
 	background-color: white;
 	border: 1px solid grey;
 	padding: 5px;
+}
+
+#blogs-container::after{
+	content: '';
+	flex: auto;
+}
+
+#blogs-container > :nth-last-child(-n+3){
+	justify-content: flex-start;
 }
 
 table tr:nth-child(even) td{
@@ -184,7 +208,7 @@ table tr:nth-child(even) td{
 
 #post-content{
 	width: calc(100% - 8px);
-	height: 400px;
+	overflow:hidden;
 	resize: none;
 }
 
@@ -198,6 +222,7 @@ table tr:nth-child(even) td{
     top: 0; 
 	background: var(--theme-secondary);
 }
+
 #account-box{
 	margin-left: auto;
 	gap: 0.67em;
@@ -227,4 +252,38 @@ table tr:nth-child(even) td{
     color:black; 
     text-decoration: none; 
     font-weight: bold; 
+}
+
+#blog-content{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	background-color: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+
+.blog-image{
+	border: 1px solid;
+}
+
+.blog-image-large{
+	display: flex;
+	height: 600px;
+	margin: auto;
+	border: 1px solid;
+}
+
+.form-button-container{
+	margin-bottom: 25px;
+	margin-right: 15px;
+}
+
+.section-header{
+	display:flex;
+	justify-content: space-between;
+}
+
+.section-header form{
+	margin: auto 50px auto 0;
 }
