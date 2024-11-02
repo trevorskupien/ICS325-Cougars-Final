@@ -18,7 +18,7 @@
 		<?php
 			if(isset($_SESSION["account"])){
 				echo '
-					<form class="account-form" action="inc/signout>
+					<form class="account-form" action="inc/signout">
 						<input class="hidden" type="submit" id="logout"/>
 						<label for="logout" class="form-button">Logout</label>
 					</form>
