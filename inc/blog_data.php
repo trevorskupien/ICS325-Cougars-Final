@@ -86,11 +86,11 @@ function getNewBlogID(){
 	return $highest + 1;
 }
 
-function postBlog($fid, $fauthor, $ftitle, $fcontent, $fpublic, $fimage){
+function postBlog($fid, $fdate, $fauthor, $ftitle, $fcontent, $fpublic, $fimage){
 	include "db.php";
 	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "INSERT INTO blogs (blog_id, image, creator_email, title, description, privacy_filter) VALUES (?, ?, ?, ?, ?, ?)");
-	mysqli_stmt_bind_param($stmt, "isssss", $fid, $fimage, $fauthor, $ftitle, $fcontent, $fpublic);
+	mysqli_stmt_prepare($stmt, "INSERT INTO blogs (blog_id, image, creator_email, title, description, event_date, privacy_filter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+	mysqli_stmt_bind_param($stmt, "issssss", $fid, $fimage, $fauthor, $ftitle, $fcontent, $fdate, $fpublic);
 	mysqli_stmt_execute($stmt);
 	mysqli_close($db);
 }
