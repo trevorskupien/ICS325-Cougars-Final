@@ -54,7 +54,7 @@ function getBlogById($blog_id) {
 	include "db.php";
 
 	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "SELECT * FROM blogs WHERE blog_id = ?");
+	mysqli_stmt_prepare($stmt, "SELECT * FROM blogs WHERE blog_id = ? LIMIT 1");
 	mysqli_stmt_bind_param($stmt, "i", $blog_id);
 	mysqli_stmt_execute($stmt);
 
@@ -91,6 +91,15 @@ function postBlog($fid, $fdate, $fauthor, $ftitle, $fcontent, $fpublic, $fimage)
 	$stmt = mysqli_stmt_init($db);
 	mysqli_stmt_prepare($stmt, "INSERT INTO blogs (blog_id, image, creator_email, title, description, event_date, privacy_filter) VALUES (?, ?, ?, ?, ?, ?, ?)");
 	mysqli_stmt_bind_param($stmt, "issssss", $fid, $fimage, $fauthor, $ftitle, $fcontent, $fdate, $fpublic);
+	mysqli_stmt_execute($stmt);
+	mysqli_close($db);
+}
+
+function deleteBlog($fid){
+	include "db.php";
+	$stmt = mysqli_stmt_init($db);
+	mysqli_stmt_prepare($stmt, "DELETE FROM blogs WHERE blog_id=?");
+	mysqli_stmt_bind_param($stmt, "i", $fid);
 	mysqli_stmt_execute($stmt);
 	mysqli_close($db);
 }

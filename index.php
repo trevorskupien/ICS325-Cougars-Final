@@ -13,11 +13,25 @@
 			
 				<div class="section-header">
 					<h1 class="section-title">Blogs</h1>
-					<form action="post">
-						<input class="hidden" type="submit" id="newblog"/>
-						<label for="newblog" class="form-button">New Blog</label>
-					</form>
+					<div class="inline-buttons">
+						<form action="post">
+							<input class="hidden" type="submit" id="newblog"/>
+							<label for="newblog" class="form-button">New Blog</label>
+						</form>
+					</div>
 				</div>
+				
+				<p id="form-result">
+					<?php
+						if(isset($_GET["result"])){
+							switch($_GET["result"]){
+								case 'delete':
+									echo "Blog post deleted.";
+									break;
+							}
+						}
+					?>
+				</p>
 				
 				<div id="blogs-container">
 					<?php

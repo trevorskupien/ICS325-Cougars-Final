@@ -105,7 +105,7 @@ body{
 	height: max-content;
 }
 
-.form-button, .form-toggle, .form-button-inline{
+.form-button, .form-toggle, .form-button-inline, .form-button-red{
 	cursor: pointer;
 	user-select: none;
 	font-size: 18px;
@@ -118,14 +118,22 @@ body{
 	transition: .2s;
 }
 
+.form-button-red{
+	background-color: var(--red);
+}
+
 .form-button-inline{
 	display: inline-block;
 }
 
-.form-button:hover, .form-button-inline:hover{
+.form-button:hover, .form-button-inline:hover, .form-button-red:hover{
 	background-color: var(--selected-green);
 	text-decoration: underline;
 	transition: .2s;
+}
+
+.form-button-red:hover{
+	background-color: var(--red);
 }
 
 .form-toggle:hover{
@@ -229,7 +237,7 @@ table tr:nth-child(even) td{
 	margin: 0 0.67em;
 }
 
-#account-box{
+.inline-buttons{
 	margin-left: auto;
 	gap: 0.67em;
 	display: flex;
@@ -271,10 +279,7 @@ table tr:nth-child(even) td{
 .section-header{
 	display:flex;
 	justify-content: space-between;
-}
-
-.section-header form{
-	margin: auto 50px auto 0;
+	margin-right: 50px;
 }
 
 html, body {

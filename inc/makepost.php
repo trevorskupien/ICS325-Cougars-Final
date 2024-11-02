@@ -16,9 +16,7 @@
 	$filename = $_FILES["image"]["name"];
 	$blog_id = getNewBlogID();
 	$target_file = "";
-	$date = date("d-m-Y");
-	
-	exit;
+	$date = date("Y:m:d H:i:s");
 	
 	//upload image file if exists
 	if($filename){
@@ -46,7 +44,9 @@
 	}
 	
 	//create blog entry
-	//function postBlog($fid, $fauthor, $ftitle, $fcontent, $fdate, $fpublic, $fimage)
-	postBlog($blog_id, $author, $title, $content, $date, $public, $target_file);
+	//function postBlog($fid, $fdate, $fauthor, $ftitle, $fcontent, $fpublic, $fimage){
+	postBlog($blog_id, $date, $author, $title, $content, $public, $target_file);
+	echo "here";
 	header('Location: ../blog.php?id=' . $blog_id);
+	exit;
 ?>

@@ -7,7 +7,7 @@
 			<span class="green">D</span>
 		</h1>
 	</a>
-	<div id="account-box">
+	<div class="inline-buttons" id="account-box">
 		<p>
 			<?php
 				include_once "account.php";
