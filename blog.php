@@ -53,6 +53,12 @@
 										<label for='delete' class='form-button-red'>Delete Blog</label>
 									</form>", $blog_id);
 								}
+								printf("
+								<form class='account-form' method='get' action='edit.php'>
+									<input class='hidden' type='text' name='id' value='%s'/>
+									<input class='hidden' type='submit' id='edit'/>
+									<label for='edit' class='form-button'>Edit Blog</label>
+								</form>", $blog_id);
 							}
 						?>
 						<form class="account-form" action="index">

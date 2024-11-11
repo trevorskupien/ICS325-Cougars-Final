@@ -89,7 +89,15 @@ function getNewBlogID(){
 function postBlog($fid, $fdate, $fauthor, $ftitle, $fcontent, $fpublic, $fimage){
 	include "db.php";
 	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "INSERT INTO blogs (blog_id, image, creator_email, title, description, event_date, privacy_filter) VALUES (?, ?, ?, ?, ?, ?, ?)");
+	mysqli_stmt_prepare($stmt, "INSERT INTO blogs (blog_id, image, creator_email, title, description, event_date, privacy_filter)
+								VALUES (?, ?, ?, ?, ?, ?, ?)
+								ON DUPLICATE KEY UPDATE
+								image = VALUES(image),
+								title = VALUES(title),
+								description = VALUES(description),
+								event_date = VALUES(event_date),
+								privacy_filter = VALUES(privacy_filter);");
+								
 	mysqli_stmt_bind_param($stmt, "issssss", $fid, $fimage, $fauthor, $ftitle, $fcontent, $fdate, $fpublic);
 	mysqli_stmt_execute($stmt);
 	mysqli_close($db);

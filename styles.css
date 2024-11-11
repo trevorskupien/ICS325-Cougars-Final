@@ -274,7 +274,10 @@ table tr:nth-child(even) td{
 
 .blog-image-large{
 	display: flex;
-	height: 600px;
+	width: 100%;
+	height: auto;
+	max-height: 600px;
+	object-fit: contain;
 	margin: auto;
 	border: 1px solid;
 }
