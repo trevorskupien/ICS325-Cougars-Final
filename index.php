@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+
+<?php
+	
+	include 'inc/account.php';
+	
+	// Set session cookie
+	// Session will expire in 24 hours
+	setcookie("PHPSESSID", session_id(), time() + 86400, "/", "", true, true);
+	
+?>
+
 <html>
 <head>
 	<title>Photo ABCD</title>
