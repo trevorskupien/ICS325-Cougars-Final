@@ -5,7 +5,8 @@
 	}
 	
 	$email = $_POST["email"];
-	$name = $_POST["name"];
+	$first_name = $_POST["first-name"];
+	$last_name = $_POST["last-name"];
 	$password = $_POST["password"];
 	$passwordc = $_POST["password-confirm"];
 	
@@ -20,18 +21,11 @@
 		return;
 	}
 	
-	if(!substr_count($name, '+') === 1){
-		header('Location: ../register.php?error=name');
-		return;
-	}
-	
 	if(getUser($email)){
 		header('Location: ../register.php?error=taken');
 		return;
 	}
 	$name_tokens = explode(" ", $name);
-	$first_name = $name_tokens[0];
-	$last_name = $name_tokens[1];
 
 	registerUser($first_name, $last_name, $email, $password);
 	loginUser($email, $password);

@@ -35,8 +35,10 @@
 
 					<form action="inc/signup.php" class="login-form" method="post">
 						<label class="form-label" for="name">Name</label>
-						<input  class="form-text" type="text" id="name" name="name" required></input>
-						
+						<div>
+							<input  class="form-text-inline" type="text" id="first-name" name="first-name" placeholder="First" required></input>
+							<input  class="form-text-inline" type="text" id="last-name" name="last-name" placeholder="Last" required></input>
+						</div>
 						<label class="form-label" for="email">Email Address</label>
 						<input  class="form-text" type="text" id="email" name="email" required></input>
 
