@@ -15,7 +15,7 @@
 		exit;
 	}
 	$creator = getUser($blog["creator_email"]);
-	$author_name = $creator ? $creator["name"] : "Unknown Author";
+	$author_name = $creator["name"];
 	$image = getBlogImage($blog);
 ?>
 <html>
@@ -54,7 +54,7 @@
 									</form>", $blog_id);
 								}
 								printf("
-								<form class='account-form' method='get' action='edit.php'>
+								<form class='account-form' method='get' action='post.php'>
 									<input class='hidden' type='text' name='id' value='%s'/>
 									<input class='hidden' type='submit' id='edit'/>
 									<label for='edit' class='form-button'>Edit Blog</label>
