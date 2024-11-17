@@ -60,6 +60,9 @@
 									case 'size':
 										echo "Maximum image size 50Mb.";
 										break;
+									case 'title':
+										echo "Title must begin with a capital letter.";
+										break;
 								}
 							}
 						?>

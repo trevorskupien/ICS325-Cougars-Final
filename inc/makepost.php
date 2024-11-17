@@ -55,6 +55,14 @@
 		}
 	}
 	
+	if(preg_match('/^[A-Z] /', $title) === 0){
+		//Blog title does not start with a solo capital leter
+		$_SESSION["title"] = $title;
+		$_SESSION["content"] = $content;
+		header('Location: ../post.php?error=title');
+		exit;
+	}
+
 	//create blog entry
 	//function postBlog($fid, $fdate, $fauthor, $ftitle, $fcontent, $fpublic, $fimage){
 	postBlog($blog_id, $date, $author, $title, $content, $public, $target_file);
