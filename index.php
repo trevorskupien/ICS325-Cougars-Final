@@ -36,7 +36,32 @@
 			
 				<div class="section-header">
 					<h1 class="section-title">Blogs</h1>
+					<div class="inline-buttons-right">
+						<form method="GET" action="">
+							<label class="form-text" for="search">Search by Letter:</label>
+							<input class="form-text-inline" type="text" name="search" id="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+
+							<label class="form-text" for="filter">Privacy Filter:</label>
+							<select class="form-select" .form-selectname="filter" id="filter">
+								<option value="">All</option>
+								<option value="public" <?= (isset($_GET['filter']) && $_GET['filter'] === 'public') ? 'selected' : '' ?>>Public</option>
+								<option value="private" <?= (isset($_GET['filter']) && $_GET['filter'] === 'private') ? 'selected' : '' ?>>Private</option>
+							</select>
+
+							<label class="form-text" for="start_date">Start Date:</label>
+							<input class="form-calendar" type="date" name="start_date" id="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? '') ?>">
+
+							<label class="form-text" for="end_date">End Date:</label>
+							<input class="form-calendar" type="date" name="end_date" id="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? '') ?>">
+
+							<button id="filterbutton" class="hidden" type="submit"></button>
+							<label for="filterbutton" class="form-button">Filter</label>
+						</form>
+					</div>
+					
 					<div class="inline-buttons">
+						<!-- Search and Filter Form -->
+						<div class="form-stretch"></div>
 						<form action="alphabet">
 							<input class="hidden" type="submit" id="alphabet"/>
 							<label for="alphabet" class="form-button">Alphabet Book</label>
@@ -48,30 +73,6 @@
 					</div>
 				</div>
 
-				<!-- Search and Filter Form -->
-				<div class="filter-section">
-					<form method="GET" action="">
-						<label for="search">Search by Letter:</label>
-						<input type="text" name="search" id="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
-
-						<label for="filter">Privacy Filter:</label>
-						<select name="filter" id="filter">
-							<option value="">All</option>
-							<option value="public" <?= (isset($_GET['filter']) && $_GET['filter'] === 'public') ? 'selected' : '' ?>>Public</option>
-							<option value="private" <?= (isset($_GET['filter']) && $_GET['filter'] === 'private') ? 'selected' : '' ?>>Private</option>
-						</select>
-
-						<label for="start_date">Start Date:</label>
-						<input type="date" name="start_date" id="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? '') ?>">
-
-						<label for="end_date">End Date:</label>
-						<input type="date" name="end_date" id="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? '') ?>">
-
-						<button type="submit">Filter</button>
-					</form>
-				</div>
-
-
 				<p id="form-result">
 					<?php
 						if (isset($_GET["result"])) {
@@ -82,8 +83,7 @@
 							}
 						}
 					?>
-				</p>
-				
+				</p>	
 				<div id="blogs-container">
 					<?php
 						if (empty($blogs)) {

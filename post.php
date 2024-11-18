@@ -117,6 +117,7 @@
 							<input class="hidden" type="submit" name="submit" id="post"/>
 							<label for="post" class="form-button"><?php echo $editing ? "Update" : "Post"?></label>
 						</div>
+						<div class="form-break"></div>
 						<div class="post-body">
 							<textarea id="post-content" name="post-content" rows="30" required><?php
 								//get default if Set

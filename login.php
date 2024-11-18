@@ -10,8 +10,9 @@
 			<?php include "inc/header.php"; ?>
 			<div id="body">
 				<div class="form-content-box">
-				
-					<h1 class="section-title">Login</h1>
+					<div class="section-header">
+						<h1 class="section-title">Login</h1>
+					</div>
 					<p id="form-result">
 						<?php
 							if(isset($_GET["error"])){
@@ -30,9 +31,12 @@
 					<form action="inc/signin.php" class="login-form" method="POST">
 						<label class="form-label" for="email">Email Address</label>
 						<input  class="form-text" type="text" id="email" name="email" required></input>
-
+						<div class="form-break"></div>
+						
 						<label class="form-label" for="password">Password</label>
-						<input class="form-text" type="password" id="password" name="password" required></input>		
+						<input class="form-text" type="password" id="password" name="password" required></input>	
+						<div class="form-break"></div>	
+						
 						<input class="hidden" type="submit" name="submit" id="post"/>
 						<label for="post" class="form-button">Login</label>
 					</form>

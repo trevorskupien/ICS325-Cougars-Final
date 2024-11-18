@@ -60,7 +60,7 @@
 								", chr(ord('A') + $i));
 							}else{
 								$blog = getBlogById($alphabet[$i]);
-								
+
 								printf("
 									<div class='alphabet-entry'>
 										<a class='no-decoration' href='blog?id=%d'>
