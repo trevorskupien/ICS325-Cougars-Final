@@ -14,9 +14,27 @@
 
 	$alphabet = getAlphabetBook(getSessionAccount()["email"]);
 	$total_set = 0;
-	foreach($alphabet as $entry_id){
-		if($entry_id !== -1)
+	$blogs = [];
+	for($i = 0; $i < 26; $i = $i + 1){
+		$entry_id = $alphabet[$i];
+
+		
+		if($entry_id !== -1){
+			$blog = getBlogById($entry_id);
+			
+			//blog was probably deleted
+			if(!$blog){
+				delAlphabetBook(getSessionAccount()["email"], chr(ord('A') + $i));
+				$blogs[] = NULL;
+				continue;
+			}
+			
+			$blogs[] = $blog;
 			$total_set = $total_set + 1;
+		}
+		
+		else
+			$blogs[] = NULL;
 	}
 ?>
 
@@ -50,17 +68,8 @@
 					
 					<?php
 						for($i = 0; $i < 26; $i++){
-							if($alphabet[$i] === -1){
-								printf("
-									<div class='alphabet-entry-empty'>
-										<a class='no-decoration' href='index'>
-											<span class='alphabet-header'>%s not picked</span>
-										</a>
-									</div>
-								", chr(ord('A') + $i));
-							}else{
-								$blog = getBlogById($alphabet[$i]);
-
+							$blog = $blogs[$i];
+							if($blog){
 								printf("
 									<div class='alphabet-entry'>
 										<a class='no-decoration' href='blog?id=%d'>
@@ -78,7 +87,15 @@
 											</div>
 										</a>
 									</div>
-									", $alphabet[$i], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $alphabet[$i]);
+								", $alphabet[$i], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $alphabet[$i]);
+							}else{
+								printf("
+									<div class='alphabet-entry-empty'>
+										<a class='no-decoration' href='index'>
+											<span class='alphabet-header'>%s not picked</span>
+										</a>
+									</div>
+								", chr(ord('A') + $i));
 							}
 						}
 					?>
