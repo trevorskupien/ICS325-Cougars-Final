@@ -36,6 +36,8 @@
 		
 		$editing = true;
 		$creator = getUser($blog["creator_email"]);
+		$letter = $blog["title"][0];
+		$title = substr($blog["title"], 6);
 	}
 ?>
 <html>
@@ -76,32 +78,16 @@
 						?>
 						<div class="post-header">
 							<select id="title-letter" name="title-letter" class="form-select">
-								<option value="A">A</option>
-								<option value="B">B</option>
-								<option value="C">C</option>
-								<option value="D">D</option>
-								<option value="E">E</option>
-								<option value="F">F</option>
-								<option value="G">G</option>
-								<option value="H">H</option>
-								<option value="I">I</option>
-								<option value="J">J</option>
-								<option value="K">K</option>
-								<option value="L">L</option>
-								<option value="M">M</option>
-								<option value="N">N</option>
-								<option value="O">O</option>
-								<option value="P">P</option>
-								<option value="Q">Q</option>
-								<option value="R">R</option>
-								<option value="S">S</option>
-								<option value="T">T</option>
-								<option value="U">U</option>
-								<option value="V">V</option>
-								<option value="W">W</option>
-								<option value="X">X</option>
-								<option value="Y">Y</option>
-								<option value="Z">Z</option>
+								<?php
+								echo $letter;
+									for($i = ord('A'); $i <= ord('Z'); $i = $i + 1){
+										echo "<option value='";
+										echo chr($i). "' ";
+										if($editing)
+											echo $letter == chr($i) ? "selected='selected'" : "";
+										echo ">" . chr($i) . "</option>";
+									}
+								?>	
 							</select>
 							<span class="form-span"> for </span>
 							<input id="title" class="form-text" type="text" name="title" placeholder="Post Title" value="<?php
@@ -110,7 +96,7 @@
 									echo htmlspecialchars($_SESSION["title"]);
 									unset($_SESSION["title"]);
 								}elseif($editing){
-									echo $blog["title"];
+									echo $title;
 								}
 							?>" required></input>
 							<input id="date" class="form-date" type="text" placeholder="<?php echo date("d-m-Y") ?>" readonly="readonly"></input>
