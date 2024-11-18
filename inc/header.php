@@ -1,5 +1,5 @@
 <div id="header">
-	<a class="no-decoration" href="/final">
+	<a class="no-decoration" href="./index.php">
 		<h1 class="title">
 			<span class="red">Photo A</span>
 			<span class="blue">B</span>

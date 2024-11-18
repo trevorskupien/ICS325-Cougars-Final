@@ -1,54 +1,117 @@
 <?php
-function getBlogs(){
-	include "db.php";
-	
-	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "SELECT * FROM blogs");
-	$result = mysqli_stmt_execute($stmt);
-	
-	if(!$result){
-		return null;
-	}
-	
-	$dbblogs = mysqli_stmt_get_result($stmt);
-	
-	$blogs = [];
-	
-	if(mysqli_num_rows($dbblogs) > 0){
-		while($dbblog = mysqli_fetch_assoc($dbblogs)){
-			$blogs[] = $dbblog;
-		}
-	}
-	
-	mysqli_close($db);
-	return $blogs;
+function getBlogs($search = null, $filter = null) {
+    include "db.php";
+
+    // Base query
+    $query = "SELECT * FROM blogs";
+    $params = [];
+    $types = "";
+
+    // Add search and filter conditions
+    if ($search || $filter) {
+        $query .= " WHERE";
+        $conditions = [];
+
+        if ($search) {
+            $conditions[] = "(title LIKE ? OR description LIKE ?)";
+            $searchParam = "%" . $search . "%";
+            $params[] = $searchParam;
+            $params[] = $searchParam;
+            $types .= "ss";
+        }
+
+        if ($filter) {
+            $conditions[] = "privacy_filter = ?";
+            $params[] = $filter;
+            $types .= "s";
+        }
+
+        $query .= " " . implode(" AND ", $conditions);
+    }
+
+    $stmt = mysqli_stmt_init($db);
+    mysqli_stmt_prepare($stmt, $query);
+
+    if (!empty($params)) {
+        mysqli_stmt_bind_param($stmt, $types, ...$params);
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_get_result($stmt);
+    $blogs = [];
+
+    if (mysqli_num_rows($result) > 0) {
+        while ($blog = mysqli_fetch_assoc($result)) {
+            $blogs[] = $blog;
+        }
+    }
+
+    mysqli_close($db);
+    return $blogs;
 }
 
-function getUserBlogs($fauthor){
-	include "db.php";
-	
-	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "SELECT * FROM blogs WHERE privacy_filter = 'public' OR creator_email = ?");
-	mysqli_stmt_bind_param($stmt, "s", $fauthor);
-	$result = mysqli_stmt_execute($stmt);
-	
-	if(!$result){
-		return null;
-	}
-	
-	$dbblogs = mysqli_stmt_get_result($stmt);
-	
-	$blogs = [];
-	
-	if(mysqli_num_rows($dbblogs) > 0){
-		while($dbblog = mysqli_fetch_assoc($dbblogs)){
-			$blogs[] = $dbblog;
-		}
-	}
-	
-	mysqli_close($db);
-	return $blogs;
+function getUserBlogs($fauthor, $search = null, $filter = null, $start_date = null, $end_date = null) {
+    include "db.php";
+
+    // Start building the query
+    $query = "SELECT * FROM blogs WHERE (privacy_filter = 'public' OR creator_email = ?)";
+    $types = "s";
+    $params = [$fauthor];
+
+    // Add search condition for titles starting with the given letter
+    if ($search) {
+        $query .= " AND title LIKE ?";
+        $types .= "s";
+        $params[] = $search . '%';
+    }
+
+    // Add filter condition for privacy
+    if ($filter) {
+        $query .= " AND privacy_filter = ?";
+        $types .= "s";
+        $params[] = $filter;
+    }
+
+    // Add date range filter
+    if ($start_date && $end_date) {
+        $query .= " AND creation_date BETWEEN ? AND ?";
+        $types .= "ss";
+        $params[] = $start_date;
+        $params[] = $end_date;
+    } elseif ($start_date) {
+        $query .= " AND creation_date >= ?";
+        $types .= "s";
+        $params[] = $start_date;
+    } elseif ($end_date) {
+        $query .= " AND creation_date <= ?";
+        $types .= "s";
+        $params[] = $end_date;
+    }
+
+    $stmt = mysqli_stmt_init($db);
+    mysqli_stmt_prepare($stmt, $query);
+    mysqli_stmt_bind_param($stmt, $types, ...$params);
+    $result = mysqli_stmt_execute($stmt);
+
+    if (!$result) {
+        return null;
+    }
+
+    $dbblogs = mysqli_stmt_get_result($stmt);
+
+    $blogs = [];
+    if (mysqli_num_rows($dbblogs) > 0) {
+        while ($dbblog = mysqli_fetch_assoc($dbblogs)) {
+            $blogs[] = $dbblog;
+        }
+    }
+
+    mysqli_close($db);
+    return $blogs;
 }
+
+
 
 function getBlogById($blog_id) {
 	include "db.php";
