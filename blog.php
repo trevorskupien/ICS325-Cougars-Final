@@ -63,7 +63,7 @@
 						?>
 						
 						<?php
-							if(isAlphabetBook($account["email"], $blog_id)){
+							if(isset($account) && isAlphabetBook($account["email"], $blog_id)){
 								printf("
 									<form class='account-form' action='inc/delAB.php'>
 										<input class='hidden' type='submit' id='ABDEL'/>
