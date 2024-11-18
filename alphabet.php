@@ -53,7 +53,9 @@
 							if($alphabet[$i] === -1){
 								printf("
 									<div class='alphabet-entry-empty'>
-										<span class='alphabet-header'>%s not picked</span>
+										<a class='no-decoration' href='index'>
+											<span class='alphabet-header'>%s not picked</span>
+										</a>
 									</div>
 								", chr(ord('A') + $i));
 							}else{

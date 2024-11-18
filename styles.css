@@ -349,7 +349,7 @@ html, body {
 	margin-top: 10px;
 }
 
-.alphabet-entry a{
+.alphabet-entry a, .alphabet-entry-empty a{
 	display: flex;
 	width: 100%;
 }
@@ -383,10 +383,11 @@ html, body {
 
 .progress-container .progress-fill{
 	margin-left: 0px;
-	background-color: var(--green);
+	background-color: var(--selected-green);
 }
 
 .progress-container .progress-report{
+	position: absolute;
 	margin-left: 4px;
 }
 
