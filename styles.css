@@ -81,6 +81,16 @@ body{
 	margin-bottom: 50px;
 }
 
+.form-select{
+	padding: 5px;
+	margin-bottom: 25px;
+}
+
+.form-span{
+	padding: 5px;
+	margin-bottom: 25px;
+}
+
 .form-text{
 	min-width: 500px;
 	padding: 5px;
@@ -107,7 +117,9 @@ body{
 .form-text,
 .form-text-inline,
 .form-toggle,
-.form-text-stretch{
+.form-text-stretch,
+.form-select,
+.form-span{
 	font-size: 18px;
 	margin-right: 10px;
 	height: max-content;
@@ -314,4 +326,80 @@ html, body {
 
 #body {
   flex-grow: 1;
+}
+
+#alphabet-container{
+	display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	background-color: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+
+.alphabet-entry, .alphabet-entry-empty{
+	display: flex;
+	justify-content: flex-start;
+	height: 80px;
+	width: calc(50% - 5px);
+	border: 1px solid;
+	margin-top: 10px;
+}
+
+.alphabet-entry a{
+	display: flex;
+	width: 100%;
+}
+
+
+.alphabet-image-container{
+	display: flex;
+	margin: auto 4px auto 4px;
+	aspect-ratio: 16 / 9;
+	background: gray;
+	height: 72px;
+	width: 128px;
+	border: 1px solid;
+	border-color: grey;
+}
+
+.alphabet-image-container img{
+	height: 100%;
+    width: auto;
+	margin: auto;
+    object-fit: contain;
+}
+
+.progress-container{
+	display: flex;
+	border: 1px solid;
+	padding: 5px;
+	width: 100%;
+	height: 24px;
+}
+
+.progress-container .progress-fill{
+	margin-left: 0px;
+	background-color: var(--green);
+}
+
+.progress-container .progress-report{
+	margin-left: 4px;
+}
+
+.alphabet-entry .alphabet-header{
+	font-size: 34px;
+}
+
+.alphabet-entry .alphabet-header b{
+	font-size: 54px;
+}
+
+.alphabet-entry-empty .alphabet-header{
+	font-size: 54px;
+	margin: auto;
+	color: grey;
 }

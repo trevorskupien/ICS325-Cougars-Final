@@ -11,9 +11,13 @@
 	//get post data
 	$author = $_SESSION["account"]["email"];
 	$title = $_POST["title"];
+	$letter = $_POST["title-letter"];
 	$content = $_POST["post-content"];
 	$public = isset($_POST["public"]) ? "public" : "private";
 	$filename = $_FILES["image"]["name"];
+	
+	//make final title
+	$title = $letter . " for " . $title;
 	
 	if(isset($_POST["id"])){
 		$blog_id = $_POST["id"];
@@ -53,14 +57,6 @@
 			header('Location: ../post.php?error=format');
 			exit;
 		}
-	}
-	
-	if(preg_match('/^[A-Z] /', $title) === 0){
-		//Blog title does not start with a solo capital leter
-		$_SESSION["title"] = $title;
-		$_SESSION["content"] = $content;
-		header('Location: ../post.php?error=title');
-		exit;
 	}
 
 	//create blog entry

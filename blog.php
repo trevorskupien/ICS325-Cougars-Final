@@ -61,6 +61,28 @@
 								</form>", $blog_id);
 							}
 						?>
+						
+						<?php
+							if(isAlphabetBook($account["email"], $blog_id)){
+								printf("
+									<form class='account-form' action='inc/delAB.php'>
+										<input class='hidden' type='submit' id='ABDEL'/>
+										<input class='hidden' type='text' name='id' value='%d'/>
+										<input class='hidden' type='text' name='return' value='blog?id=%d'/>
+										<label for='ABDEL' class='form-button-red'>Remove from Alphabet Book</label>
+									</form>
+								", $blog_id, $blog_id);
+							}else{
+								printf("
+									<form class='account-form' action='inc/addAB.php'>
+										<input class='hidden' type='submit' id='ABADD'/>
+										<input class='hidden' type='text' name='id' value='%d'/>
+										<input class='hidden' type='text' name='return' value='blog?id=%d'/>
+										<label for='ABADD' class='form-button'>Add to Alphabet Book</label>
+									</form>
+								", $blog_id, $blog_id);
+							}
+						?>
 						<form class="account-form" action="index">
 							<input class="hidden" type="submit" id="return"/>
 							<label for="return" class="form-button">Back To Blogs</label>

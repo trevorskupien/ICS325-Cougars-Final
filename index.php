@@ -25,6 +25,10 @@
 				<div class="section-header">
 					<h1 class="section-title">Blogs</h1>
 					<div class="inline-buttons">
+						<form action="alphabet">
+							<input class="hidden" type="submit" id="alphabet"/>
+							<label for="alphabet" class="form-button">Alphabet Book</label>
+						</form>
 						<form action="post">
 							<input class="hidden" type="submit" id="newblog"/>
 							<label for="newblog" class="form-button">New Blog</label>
