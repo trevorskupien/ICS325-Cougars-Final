@@ -96,7 +96,7 @@
 								// Build blog entry with a link to view details
 								printf("
 								<div class='blog-container'>
-									<a class='no-decoration' href='blog.php?id=%s'>
+									<a class='no-decoration' href='%s'>
 										<div class='blog-image-container'>
 											<img src='images/%s' alt='Blog Image'>
 										</div>
@@ -104,7 +104,7 @@
 										<p class='blog-title'>By %s %s</p>
 									</a>
 								</div>",
-								htmlspecialchars($blog["blog_id"]),
+								htmlspecialchars(isset($_GET["add-to"]) ? "edit-book.php?id=" . $_GET["add-to"] . "&add-blog=" . $blog["blog_id"] : "blog.php?id=" . $blog["blog_id"]),
 								htmlspecialchars(getBlogImage($blog)),
 								htmlspecialchars($blog["title"]),
 								htmlspecialchars($name),
