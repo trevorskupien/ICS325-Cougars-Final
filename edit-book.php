@@ -9,6 +9,7 @@
 		header('Location: login.php');
 		exit;
 	}
+
 	
 	if (!isset($_GET['id'])) {
 		header('Location: login.php');
@@ -22,6 +23,24 @@
 
 	$alphabet = getBookById($_GET['id']);
 	$title = $alphabet["title"];
+		
+	if($_SESSION["account"]["email"] != $alphabet["creator_email"])
+	{
+		header('Location: login.php');
+		exit;
+	}
+	
+	//add new blog
+	if(isset($_GET["add-blog"])){
+		$blog = getBlogById($_GET["add-blog"]);
+		$letter = $blog["title"][0];
+		setBookSlot($alphabet["book_id"], $blog["blog_id"], $letter);
+		
+		//hacky way to refresh from db
+		$alphabet = getBookById($_GET['id']);
+	}
+	
+
 ?>
 
 <html>
@@ -83,24 +102,25 @@
 											</div>
 											<span class='alphabet-header'><b>%s</b> %s</span>
 											<div class='inline-buttons' style='margin-right:5px'>
-												<form class='account-form' action='inc/delAB.php'>
-													<input class='hidden' type='submit' id='delete'/>
-													<input class='hidden' type='text' name='id' value='%d'/>
-													<input class='hidden' type='text' name='return' value='alphabet'/>
-													<label for='delete' class='form-button-red'>Remove</label>
+												<form class='account-form' action='inc/remove-book-entry.php'>
+													<input class='hidden' type='submit' id='delete%d'/>
+													<input class='hidden' type='text' name='book_id' value='%d'/>
+													<input class='hidden' type='text' name='blog_id' value='%d'/>
+													<input class='hidden' type='text' name='return' value='edit-book?id=%d'/>
+													<label for='delete%d' class='form-button-red'>Remove</label>
 												</form>
 											</div>
 										</a>
 									</div>
-								", $blog["blog_id"], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $blog["blog_id"]);
+								", $blog["blog_id"], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $i, $alphabet["book_id"], $blog["blog_id"], $alphabet["book_id"], $i);
 							}else{
 								printf("
 									<div class='alphabet-entry-empty'>
-										<a class='no-decoration' href='index'>
+										<a class='no-decoration' href='index?add-to=%s'>
 											<span class='alphabet-header'>%s not picked</span>
 										</a>
 									</div>
-								", chr(ord('A') + $i));
+								", $alphabet["book_id"],chr(ord('A') + $i));
 							}
 						}
 					?>
