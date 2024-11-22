@@ -155,7 +155,7 @@ function createBook($fid, $fauthor, $ftitle, $fpublic){
 function deleteBook($fid){
 	include "db.php";
 	$stmt = mysqli_stmt_init($db);
-	mysqli_stmt_prepare($stmt, "DELETE FROM book WHERE book_id=?");
+	mysqli_stmt_prepare($stmt, "DELETE FROM books WHERE book_id=?");
 	mysqli_stmt_bind_param($stmt, "i", $fid);
 	mysqli_stmt_execute($stmt);
 	mysqli_close($db);

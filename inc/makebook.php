@@ -12,7 +12,8 @@
 	$author = $_SESSION["account"]["email"];
 	$title = $_POST["title"];
 	$public = isset($_POST["public"]) ? "public" : "private";
-
+	$return = "book.php";
+	
 	if(isset($_POST["id"])){
 		$book_id = $_POST["id"];
 		$book = getBookById($book_id);
@@ -21,12 +22,15 @@
 			header('Location: ../index.php');
 			exit;
 		}
+		
+		$return = "edit-book.php";
 	}else{
 		$book_id = getNewBookID();
 	}
 
 	//create book entry
 	createBook($book_id, $author, $title, $public);
-	header('Location: ../book.php?id=' . $book_id);
+
+	header('Location: ../' . $return . '?id=' . $book_id);
 	exit;
 ?>
