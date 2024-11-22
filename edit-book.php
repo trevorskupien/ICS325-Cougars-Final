@@ -2,9 +2,17 @@
 
 <?php
 	include_once 'inc/account.php';
+	include_once 'inc/book_data.php';
 	include_once 'inc/blog_data.php';
+	
 	if(!isset($_SESSION["account"])){
 		header('Location: login.php');
+		exit;
+	}
+	
+	if (!isset($_GET['id'])) {
+		header('Location: login.php');
+		exit;
 	}
 	
 	// Set session cookie
@@ -12,30 +20,8 @@
 	setcookie("PHPSESSID", session_id(), time() + 86400, "/", "", true, true);
 
 
-	$alphabet = getAlphabetBook(getSessionAccount()["email"]);
-	$total_set = 0;
-	$blogs = [];
-	for($i = 0; $i < 26; $i = $i + 1){
-		$entry_id = $alphabet[$i];
-
-		
-		if($entry_id !== -1){
-			$blog = getBlogById($entry_id);
-			
-			//blog was probably deleted
-			if(!$blog){
-				delAlphabetBook(getSessionAccount()["email"], chr(ord('A') + $i));
-				$blogs[] = NULL;
-				continue;
-			}
-			
-			$blogs[] = $blog;
-			$total_set = $total_set + 1;
-		}
-		
-		else
-			$blogs[] = NULL;
-	}
+	$alphabet = getBookById($_GET['id']);
+	$title = $alphabet["title"];
 ?>
 
 <html>
@@ -51,7 +37,8 @@
 			<div class="content-box">
 			
 				<div class="section-header">
-					<h1 class="section-title">Alphabet Book</h1>
+					<h1 class="section-title">Edit Alphabet Book</h1>
+				
 					<div class="inline-buttons">
 						<form class="account-form" action="index">
 							<input class="hidden" type="submit" id="return"/>
@@ -61,14 +48,30 @@
 				</div>
 
 				<div id="alphabet-container">
+									
+					<div class="book-title-edit">
+						<input id="title" class="form-text-stretch" type="text" name="title" placeholder="Book Title" value="<?php echo $title; ?>" required></input>
+
+						<input id="visibility" class="hidden" name="public" type="checkbox" <?php 
+							if($alphabet["privacy_filter"] != "private"){
+							echo "checked";
+							}
+						?>></input>
+
+						<label id="visibility-label" for="visibility" class="form-toggle"></label>
+
+						<input class="hidden" type="submit" name="submit" id="post"/>
+						<label for="post" class="form-button"> Update </label>
+					</div>
+					
 					<div class="progress-container">
-						<div class="progress-fill" style="width: calc(100% * <?php echo $total_set;?>/26);"></div>
-						<span class="progress-report">Progress: <?php echo $total_set;?> / 26</span>
+						<div class="progress-fill" style="width: calc(100% * <?php echo $alphabet["total"];?>/26);"></div>
+						<span class="progress-report">Progress: <?php echo $alphabet["total"];?> / 26</span>
 					</div>
 					
 					<?php
 						for($i = 0; $i < 26; $i++){
-							$blog = $blogs[$i];
+							$blog = getBlogById($alphabet["list"][$i]);
 							if($blog){
 								printf("
 									<div class='alphabet-entry'>
@@ -87,7 +90,7 @@
 											</div>
 										</a>
 									</div>
-								", $alphabet[$i], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $alphabet[$i]);
+								", $blog["blog_id"], getBlogImage($blog), $blog["title"][0], substr($blog["title"], 1), $blog["blog_id"]);
 							}else{
 								printf("
 									<div class='alphabet-entry-empty'>

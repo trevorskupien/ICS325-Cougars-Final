@@ -21,6 +21,7 @@ body{
 
 .title{
 	display: inline;
+	margin-right: 30px;
 	font-size: 0; 
 	& span{
 		font-size: 32px;
@@ -121,6 +122,12 @@ body{
 	font-size: 18px;
 	margin-right: 10px;
 	height: max-content;
+}
+
+.form-text-stretch{
+	padding: 5px;
+	display: flex;
+	flex-grow: 1;
 }
 
 .form-button, .form-toggle, .form-button-inline, .form-button-red{
@@ -415,4 +422,10 @@ html, body {
 .filter-section{
 	display: flex;
 	justify-content: flex-start;
+}
+
+.book-title-edit{
+	margin-bottom: 5px;
+	display: flex;
+	width: 100%;
 }
