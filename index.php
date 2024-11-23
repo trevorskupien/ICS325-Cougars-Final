@@ -112,8 +112,8 @@
 										<div class='blog-thumbnail-container'>
 											<img src='images/%s' alt='Blog Image'>
 										</div>
-										<p class='blog-title'>%s</p>
-										<p class='blog-title'>By %s %s</p>
+										<p class='blog-thumbnail-title'>%s</p>
+										<p class='blog-thumbnail-title'>By %s %s</p>
 									</a>
 								</div>",
 								htmlspecialchars(isset($_GET["add-to"]) ? "edit-book.php?id=" . $_GET["add-to"] . "&add-blog=" . $blog["blog_id"] : "blog.php?id=" . $blog["blog_id"]),
