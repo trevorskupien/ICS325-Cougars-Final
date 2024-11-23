@@ -88,7 +88,6 @@
 					<?php
 						if (empty($blogs)) {
 							echo "<p>This Alphabet Book is empty!</p>";
-							echo "<p>This Alphabet Book is empty!</p>";
 						}else{
 							$total = $book["total"];
 							
