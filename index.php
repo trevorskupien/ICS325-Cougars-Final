@@ -61,11 +61,23 @@
 					
 					<div class="inline-buttons">
 						<!-- Search and Filter Form -->
-						<div class="form-stretch"></div>
-						<form action="edit-blog">
-							<input class="hidden" type="submit" id="newblog"/>
-							<label for="newblog" class="form-button">New Blog</label>
-						</form>
+						<?php
+							if(isset($_GET["add-to"])){
+								printf('
+								<form action="edit-book">
+									<input class="hidden" type="submit" id="back"/>
+									<input class="hidden" type="text" name="id" value="%d"/>
+									<label for="back" class="form-button">Back to Book</label>
+								</form>', $_GET["add-to"]);
+							}else{
+								echo '
+								<form action="edit-blog">
+									<input class="hidden" type="submit" id="newblog"/>
+									<label for="newblog" class="form-button">New Blog</label>
+								</form>';
+							}
+						
+						?>
 					</div>
 				</div>
 
@@ -97,7 +109,7 @@
 								printf("
 								<div class='blog-container'>
 									<a class='no-decoration' href='%s'>
-										<div class='blog-image-container'>
+										<div class='blog-thumbnail-container'>
 											<img src='images/%s' alt='Blog Image'>
 										</div>
 										<p class='blog-title'>%s</p>

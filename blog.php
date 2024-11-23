@@ -54,7 +54,7 @@
 									</form>", $blog_id);
 								}
 								printf("
-								<form class='account-form' method='get' action='post.php'>
+								<form class='account-form' method='get' action='edit-blog.php'>
 									<input class='hidden' type='text' name='id' value='%s'/>
 									<input class='hidden' type='submit' id='edit'/>
 									<label for='edit' class='form-button'>Edit Blog</label>
@@ -70,10 +70,23 @@
 				</div>
 				<div id="blog-content">
 					<?php
-						echo "<img class='blog-image-large' src='images/" . $image . "'></img>";
-						echo "<p>By " . htmlspecialchars($author_name) . "</p>";
-						echo "<p>Date: " . htmlspecialchars($blog["event_date"]) . "</p>";
-						echo "<p>" . nl2br(htmlspecialchars($blog["description"])) . "</p>";
+						$creator = getUser($blog["creator_email"]);
+						$author_name = $creator["name"];
+
+						printf('
+								<div class="blog-slide">
+									<div class="blog-image-container"><img src="images/%s"></img></div>
+									<h1  class="blog-title">%s</h1>
+									<p 	 class="blog-details">by %s %s</p>
+									<p 	 class="blog-text">%s</p>
+									
+								</div>',
+								htmlspecialchars($blog["image"] != "" ? $blog["image"] : "default.png"),
+								htmlspecialchars($blog["title"]),
+								htmlspecialchars($author_name),
+								htmlspecialchars($blog["event_date"]),
+								nl2br(htmlspecialchars($blog["description"]))
+								);
 					?>
 				</div>
 			</div>

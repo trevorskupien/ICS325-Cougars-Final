@@ -92,7 +92,7 @@
 								printf("
 								<div class='blog-container'>
 									<a class='no-decoration' href='book.php?id=%s'>
-										<div class='blog-image-container'>
+										<div class='blog-thumbnail-container'>
 											<img src='images/%s' alt='Blog Image'>
 										</div>
 										<p class='blog-title'>%s</p>
@@ -100,7 +100,7 @@
 									</a>
 								</div>",
 								htmlspecialchars($book["book_id"]),
-								htmlspecialchars(isset($book["A"]) ? getBlogById($book["A"])["image"] != "" ? getBlogById($book["A"])["image"] : "default.png" : "default.png"),
+								htmlspecialchars(getBookThumbnail($book["book_id"], $account)),
 								htmlspecialchars($book["title"]),
 								htmlspecialchars($name),
 								htmlspecialchars($private));

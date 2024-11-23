@@ -97,7 +97,8 @@ function getUserBooks($fauthor, $search = null, $filter = null) {
 
 function getBookById($book_id) {
 	include "db.php";
-
+	include_once "blog_data.php";
+	
 	$stmt = mysqli_stmt_init($db);
 	mysqli_stmt_prepare($stmt, "SELECT * FROM books WHERE book_id = ? LIMIT 1");
 	mysqli_stmt_bind_param($stmt, "i", $book_id);
@@ -114,6 +115,11 @@ function getBookById($book_id) {
 	for($i = ord('A'); $i <= ord('Z'); $i++){
 		$letter = chr($i);
 		if(isset($book[$letter])){
+			//check for deleted blogs and unset them
+			$blog = getBlogById($book[$letter]);
+			if(!$blog)
+				clearBookSlot($book_id, $letter);
+			
 			$book_arr[] = $book[$letter];
 			$total++;
 		}else{
@@ -190,4 +196,22 @@ function inBookSlot($fbook_id, $fblog_id){
 	$book = getBookById($fbook_id);
 	
 	return $book[$slot] == $fblog_id;
+}
+
+function getBookThumbnail($fbook_id, $faccount){
+	$book = getBookById($fbook_id);
+	for($i = 0; $i < 26; $i++){
+		$blog = getBlogById($book["list"][$i]);
+		if(!$blog)
+			continue;
+		
+		if($blog["image"] != ""){
+			if($blog["privacy_filter"] == "private" && (!$faccount || $faccount["email"] != $blog["creator_email"]))
+				continue;
+			
+			return $blog["image"];
+		}
+	}
+	
+	return "default.png";
 }

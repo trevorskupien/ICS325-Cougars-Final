@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php
 	include_once "inc/book_data.php";
+	include_once "inc/blog_data.php";
 	include_once "inc/account.php";
 	// Check if blog ID is set in the URL
 	if (!isset($_GET['id'])) {
@@ -16,6 +17,22 @@
 	}
 	$creator = getUser($book["creator_email"]);
 	$author_name = $creator["name"];
+	
+	$blogs = [];
+	for($i = 0; $i < 26; $i++){
+		$blog = getBlogById($book["list"][$i]);
+		
+		if($blog){
+			
+			//skip private blogs added to public alphabet book
+			if($blog["privacy_filter"] == "private" && (!$account || $blog["creator_email"] != $account["email"])){
+				$book["total"]--;
+				continue;
+			}
+			$blogs[] = $blog;
+		}
+			
+	}
 ?>
 <html>
 <head>
@@ -67,11 +84,53 @@
 						</form>
 					</div>
 				</div>
-				<div id="blog-content">
+				<div id="book-content">
 					<?php
-						//echo "<img class='blog-image-large' src='images/" . $image . "'></img>";
-						echo "<p>By " . htmlspecialchars($author_name) . "</p>";
+						if (empty($blogs)) {
+							echo "<p>This Alphabet Book is empty!</p>";
+							echo "<p>This Alphabet Book is empty!</p>";
+						}else{
+							$total = $book["total"];
+							
+							for($i = 0; $i < $book["total"]; $i++){
+								$blog = $blogs[$i];
+								$creator = getUser($blog["creator_email"]);
+								$author_name = $creator["name"];
+								
+								//skip private blogs added to public alphabet book
+								if($blog["privacy_filter"] == "private" && (!$account || $blog["creator_email"] != $account["email"])){
+									continue;
+								}
+								
+								printf('
+										<div class="blog-slide fade">
+											<div class="blog-image-container"><img src="images/%s"></img></div>
+											
+											<div class="blog-controls">
+												<button onclick="incSlides(-1);" class="form-button-inline" style="width: 90px">Previous</button>
+												<div class="blog-label">%d / %d</div>
+												<button onclick="incSlides(1);"class="form-button-inline" style="width: 90px">Next</button>
+											</div>
+											
+											<h1  class="blog-title">%s</h1>
+											<p 	 class="blog-details">by %s %s</p>
+											<p 	 class="blog-text">%s</p>
+											
+										</div>',
+										htmlspecialchars($blog["image"] != "" ? $blog["image"] : "default.png"),
+										$i + 1,
+										htmlspecialchars($total),
+										htmlspecialchars($blog["title"]),
+										htmlspecialchars($author_name),
+										htmlspecialchars($blog["event_date"]),
+										nl2br(htmlspecialchars($blog["description"]))
+										);
+							}
+						}
+					
 					?>
+
+
 				</div>
 			</div>
 		</div>
@@ -79,5 +138,6 @@
 			<p>Fall 2024 ICS 325-50 Team Cougars</p>
 		</div>
 	</div>
+	<script src="inc/slideshow.js"></script>
 </body>
 </html>

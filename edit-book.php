@@ -40,7 +40,6 @@
 		$alphabet = getBookById($_GET['id']);
 	}
 	
-
 ?>
 
 <html>
@@ -56,12 +55,13 @@
 			<div class="content-box">
 			
 				<div class="section-header">
-					<h1 class="section-title">Alphabet Book</h1>
+					<h1 class="section-title">Edit Alphabet Book</h1>
 				
 					<div class="inline-buttons">
-						<form class="account-form" action="books">
+						<form class="account-form" action="book">
 							<input class="hidden" type="submit" id="return"/>
-							<label for="return" class="form-button">Back To Books</label>
+							<input class="hidden" type="text" name="id" value="<?php echo $_GET['id'] ?>"/>
+							<label for="return" class="form-button">Back To Book</label>
 						</form>
 					</div>
 				</div>
@@ -70,7 +70,7 @@
 									
 					<form class="book-title-edit" action="inc/makebook.php" method="post" enctype="multipart/form-data">
 						<input class='hidden' type='text' name='id' value='<?php echo $alphabet["book_id"] ?>'/>
-						
+						<span class="form-span"> Title: </span>
 						<input id="title" class="form-text-stretch" type="text" name="title" placeholder="Book Title" value="<?php echo $title; ?>" required></input>
 
 						<input id="visibility" class="hidden" name="public" type="checkbox" <?php 
@@ -116,11 +116,11 @@
 							}else{
 								printf("
 									<div class='alphabet-entry-empty'>
-										<a class='no-decoration' href='index?add-to=%s'>
+										<a class='no-decoration' href='index?add-to=%s&search=%s'>
 											<span class='alphabet-header'>%s not picked</span>
 										</a>
 									</div>
-								", $alphabet["book_id"],chr(ord('A') + $i));
+								", $alphabet["book_id"],chr(ord('A') + $i), chr(ord('A') + $i));
 							}
 						}
 					?>

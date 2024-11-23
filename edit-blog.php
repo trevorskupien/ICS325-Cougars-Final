@@ -51,7 +51,7 @@
 			<?php include "inc/header.php"; ?>
 			<div id="body">
 				<div class="content-box" id="content-box">
-					<div class="section-header"><h1 class="section-title">Post Blog</h1></div>
+					<div class="section-header"><h1 class="section-title"><?php echo $editing ? "Edit Blog" : "Post Blog"?></h1></div>
 					<p id="form-result">
 						<?php
 							if(isset($_GET["error"])){
