@@ -212,8 +212,7 @@ input:checked + .form-toggle::before{
 	content: "Public";
 }
 
-#blogs-container{
-	display: flex;
+#blogs-container, #tables-container{
     flex-flow: row wrap;
     justify-content: space-between;
 	margin-left: 50px;
@@ -222,6 +221,10 @@ input:checked + .form-toggle::before{
 	background-color: white;
 	border: 1px solid grey;
 	padding: 5px;
+}
+
+#blogs-container{
+	display: flex;
 }
 
 #blogs-container::after{
@@ -269,6 +272,10 @@ table tr:nth-child(even) td{
 	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
+}
+
+.inline-buttons .form-toggle{
+	
 }
 
 .inline-buttons{

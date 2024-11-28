@@ -50,14 +50,8 @@ function getUser($femail){
 	$last_name = $user["last_name"];
 	$email = $user["email"];
 	$password = $user["password"];
-	
-	return array(
-		"email" => $email,
-		"name" => $first_name . " " . $last_name,
-		"first_name" => $first_name,
-		"last_name" => $last_name,
-		"password" => $password,
-	);
+	$user["name"] = $first_name . " " . $last_name;
+	return $user;
 }
 
 function getSessionAccount(){
@@ -78,4 +72,34 @@ function getWelcomeText(){
 		return "Welcome back, " . $_SESSION['account']['first_name'] . "!";
 	}
 	return "Not signed in.";
+}
+
+
+//returns all users
+function getUsers() {
+    include "db.php";
+
+    // Start building the query
+    $query = "SELECT * FROM users";
+	
+    $stmt = mysqli_stmt_init($db);
+    mysqli_stmt_prepare($stmt, $query);
+    $result = mysqli_stmt_execute($stmt);
+
+    if (!$result) {
+        return null;
+    }
+
+    $dbusers = mysqli_stmt_get_result($stmt);
+
+    $users = [];
+    if (mysqli_num_rows($dbusers) > 0) {
+        while ($dbuser = mysqli_fetch_assoc($dbusers)) {
+			$dbuser["name"] = $dbuser["first_name"] . " " . $dbuser["last_name"];
+            $users[] = $dbuser;
+        }
+    }
+
+    mysqli_close($db);
+    return $users;
 }
