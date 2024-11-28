@@ -21,6 +21,7 @@ body{
 
 .title{
 	display: inline;
+	margin-right: 30px;
 	font-size: 0; 
 	& span{
 		font-size: 32px;
@@ -47,6 +48,7 @@ body{
     max-width: 90%; 
     box-sizing: border-box; 
     overflow-wrap: break-word; 
+	width: max-content;
 }
 
 .form-content-box {
@@ -123,6 +125,12 @@ body{
 	height: max-content;
 }
 
+.form-text-stretch{
+	padding: 5px;
+	display: flex;
+	flex-grow: 1;
+}
+
 .form-button, .form-toggle, .form-button-inline, .form-button-red{
 	cursor: pointer;
 	user-select: none;
@@ -166,20 +174,20 @@ body{
 	margin: 5px;
 }
 
-.blog-image-container{
+.blog-thumbnail-container{
 	display: flex;
 	margin: auto;
 	aspect-ratio: 16 / 9;
 	background: gray;
 }
 
-.blog-image-container img{
+.blog-thumbnail-container img{
     width: 100%;
     height: auto;
     object-fit: contain;
 }
 
-.blog-title{
+.blog-thumbnail-title{
 	text-align: center;
 	margin: auto;
 }
@@ -267,10 +275,6 @@ table tr:nth-child(even) td{
 	margin-left: auto;
 }
 
-.inline-buttons-right{
-	margin-right: auto;
-}
-
 .no-decoration{
 	color: black;
 	text-decoration: none;
@@ -286,16 +290,6 @@ table tr:nth-child(even) td{
 }
 
 .blog-image{
-	border: 1px solid;
-}
-
-.blog-image-large{
-	display: flex;
-	width: 100%;
-	height: auto;
-	max-height: 600px;
-	object-fit: contain;
-	margin: auto;
 	border: 1px solid;
 }
 
@@ -415,4 +409,76 @@ html, body {
 .filter-section{
 	display: flex;
 	justify-content: flex-start;
+}
+
+#book-content{
+	margin-left: 50px;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	background-color: white;
+	border: 1px solid grey;
+	padding: 5px;
+}
+
+.book-title-edit{
+	margin-bottom: 5px;
+	display: flex;
+	width: 100%;
+}
+
+.blog-slide{
+	display: flex;
+	flex-direction: column;
+}
+
+.blog-image-container, .blog-details, .blog-title, .blog-controls{
+	display: flex;
+	margin: auto;
+}
+
+.blog-details{
+	margin-bottom: 15px;
+}
+
+.blog-image-container{
+	display: flex;
+	margin-left: auto;
+	margin-right: auto;
+	flex-grow: 1;
+	aspect-ratio: 16 / 9;
+	background: gray;
+	border: 1px solid;
+	border-color: grey;
+	width: 800px;
+	max-width: 100%;
+}
+
+.blog-image-container img{
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.blog-controls{
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	margin-top: 15px;
+}
+
+.blog-label{
+	display: inline;
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: .2s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
 }

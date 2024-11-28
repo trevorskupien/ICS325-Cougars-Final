@@ -54,35 +54,14 @@
 									</form>", $blog_id);
 								}
 								printf("
-								<form class='account-form' method='get' action='post.php'>
+								<form class='account-form' method='get' action='edit-blog.php'>
 									<input class='hidden' type='text' name='id' value='%s'/>
 									<input class='hidden' type='submit' id='edit'/>
 									<label for='edit' class='form-button'>Edit Blog</label>
 								</form>", $blog_id);
 							}
 						?>
-						
-						<?php
-							if(isset($account) && isAlphabetBook($account["email"], $blog_id)){
-								printf("
-									<form class='account-form' action='inc/delAB.php'>
-										<input class='hidden' type='submit' id='ABDEL'/>
-										<input class='hidden' type='text' name='id' value='%d'/>
-										<input class='hidden' type='text' name='return' value='blog?id=%d'/>
-										<label for='ABDEL' class='form-button-red'>Remove from Alphabet Book</label>
-									</form>
-								", $blog_id, $blog_id);
-							}else{
-								printf("
-									<form class='account-form' action='inc/addAB.php'>
-										<input class='hidden' type='submit' id='ABADD'/>
-										<input class='hidden' type='text' name='id' value='%d'/>
-										<input class='hidden' type='text' name='return' value='blog?id=%d'/>
-										<label for='ABADD' class='form-button'>Add to Alphabet Book</label>
-									</form>
-								", $blog_id, $blog_id);
-							}
-						?>
+
 						<form class="account-form" action="index">
 							<input class="hidden" type="submit" id="return"/>
 							<label for="return" class="form-button">Back To Blogs</label>
@@ -91,10 +70,23 @@
 				</div>
 				<div id="blog-content">
 					<?php
-						echo "<img class='blog-image-large' src='images/" . $image . "'></img>";
-						echo "<p>By " . htmlspecialchars($author_name) . "</p>";
-						echo "<p>Date: " . htmlspecialchars($blog["event_date"]) . "</p>";
-						echo "<p>" . nl2br(htmlspecialchars($blog["description"])) . "</p>";
+						$creator = getUser($blog["creator_email"]);
+						$author_name = $creator["name"];
+
+						printf('
+								<div class="blog-slide">
+									<div class="blog-image-container"><img src="images/%s"></img></div>
+									<h1  class="blog-title">%s</h1>
+									<p 	 class="blog-details">by %s %s</p>
+									<p 	 class="blog-text">%s</p>
+									
+								</div>',
+								htmlspecialchars($blog["image"] != "" ? $blog["image"] : "default.png"),
+								htmlspecialchars($blog["title"]),
+								htmlspecialchars($author_name),
+								htmlspecialchars($blog["event_date"]),
+								nl2br(htmlspecialchars($blog["description"]))
+								);
 					?>
 				</div>
 			</div>

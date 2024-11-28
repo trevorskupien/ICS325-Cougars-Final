@@ -4,6 +4,7 @@
     // Include necessary files
     include 'inc/account.php';
     include_once 'inc/blog_data.php';
+    include_once 'inc/book_data.php';
 
     // Set session cookie
     setcookie("PHPSESSID", session_id(), time() + 86400, "/", "", true, true);
@@ -18,8 +19,8 @@
     $account = getSessionAccount();
     $email = $account ? $account["email"] : "";
 
-    // Fetch blogs based on search, filter, and date range criteria
-    $blogs = getUserBlogs($email, $search, $filter, $start_date, $end_date);
+    // Fetch books based on search, filter, and date range criteria
+    $books = getUserBooks($email, $search, $filter);
 ?>
 
 <html>
@@ -35,7 +36,7 @@
 			<div class="content-box">
 			
 				<div class="section-header">
-					<h1 class="section-title">Blogs</h1>
+					<h1 class="section-title">Alphabet Books</h1>
 					<div class="inline-buttons-right">
 						<form method="GET" action="">
 							<label class="form-text" for="search">Title:</label>
@@ -48,12 +49,6 @@
 								<option value="private" <?= (isset($_GET['filter']) && $_GET['filter'] === 'private') ? 'selected' : '' ?>>Private</option>
 							</select>
 
-							<label class="form-text" for="start_date">Start Date:</label>
-							<input class="form-calendar" type="date" name="start_date" id="start_date" value="<?= htmlspecialchars($_GET['start_date'] ?? '') ?>">
-
-							<label class="form-text" for="end_date">End Date:</label>
-							<input class="form-calendar" type="date" name="end_date" id="end_date" value="<?= htmlspecialchars($_GET['end_date'] ?? '') ?>">
-
 							<button id="filterbutton" class="hidden" type="submit"></button>
 							<label for="filterbutton" class="form-button">Filter</label>
 						</form>
@@ -61,23 +56,11 @@
 					
 					<div class="inline-buttons">
 						<!-- Search and Filter Form -->
-						<?php
-							if(isset($_GET["add-to"])){
-								printf('
-								<form action="edit-book">
-									<input class="hidden" type="submit" id="back"/>
-									<input class="hidden" type="text" name="id" value="%d"/>
-									<label for="back" class="form-button">Back to Book</label>
-								</form>', $_GET["add-to"]);
-							}else{
-								echo '
-								<form action="edit-blog">
-									<input class="hidden" type="submit" id="newblog"/>
-									<label for="newblog" class="form-button">New Blog</label>
-								</form>';
-							}
-						
-						?>
+						<div class="form-stretch"></div>
+						<form action="create-book">
+							<input class="hidden" type="submit" id="newbook"/>
+							<label for="newbook" class="form-button">New Alphabet Book</label>
+						</form>
 					</div>
 				</div>
 
@@ -86,7 +69,7 @@
 						if (isset($_GET["result"])) {
 							switch ($_GET["result"]) {
 								case 'delete':
-									echo "Blog post deleted.";
+									echo "Alphabet book deleted.";
 									break;
 							}
 						}
@@ -94,21 +77,21 @@
 				</p>	
 				<div id="blogs-container">
 					<?php
-						if (empty($blogs)) {
-							echo "<p>No blogs found matching your criteria.</p>";
+						if (empty($books)) {
+							echo "<p>No books found matching your criteria.</p>";
 						} else {
-							foreach ($blogs as $blog) {
-								$name = getUser($blog["creator_email"])["name"] ?? "Unknown Author";
-								$private = !strcmp($blog["privacy_filter"], "private") ? "(private)" : "";
+							foreach ($books as $book) {
+								$name = getUser($book["creator_email"])["name"] ?? "Unknown Author";
+								$private = !strcmp($book["privacy_filter"], "private") ? "(private)" : "";
 
-								if ($account && $blog["creator_email"] === $account["email"]) {
+								if ($account && $book["creator_email"] === $account["email"]) {
 									$name = "You";
 								}
 
 								// Build blog entry with a link to view details
 								printf("
 								<div class='blog-container'>
-									<a class='no-decoration' href='%s'>
+									<a class='no-decoration' href='book.php?id=%s'>
 										<div class='blog-thumbnail-container'>
 											<img src='images/%s' alt='Blog Image'>
 										</div>
@@ -116,9 +99,9 @@
 										<p class='blog-thumbnail-title'>By %s %s</p>
 									</a>
 								</div>",
-								htmlspecialchars(isset($_GET["add-to"]) ? "edit-book.php?id=" . $_GET["add-to"] . "&add-blog=" . $blog["blog_id"] : "blog.php?id=" . $blog["blog_id"]),
-								htmlspecialchars(getBlogImage($blog)),
-								htmlspecialchars($blog["title"]),
+								htmlspecialchars($book["book_id"]),
+								htmlspecialchars(getBookThumbnail($book["book_id"], $account)),
+								htmlspecialchars($book["title"]),
 								htmlspecialchars($name),
 								htmlspecialchars($private));
 							}
