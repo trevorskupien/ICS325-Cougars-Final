@@ -84,7 +84,7 @@
 					</div>
 				</div>
 	
-				<div id="blogs-container">
+				<div id="admin-container">
 					<?php
 						if($display == "users"){
 							echo '<div id="user-table" class="admin-table">';
@@ -96,6 +96,11 @@
 										<div class='admin-element-container'>
 											<p><b>%s</b>; %s</p>
 											<div class='inline-buttons'>
+												<form class='account-form' action='profile.php'>
+													<input class='hidden' type='text' name='email' value='%s'/>
+													<input class='hidden' type='submit' id='user%dprofile'/>
+													<label for='user%dprofile' class='form-button'>Profile</label>
+												</form>
 												<form class='account-form' action='admin.php'>
 													<input class='hidden' type='text' name='display' value='blogs'/>
 													<input class='hidden' type='text' name='for' value='%s'/>
@@ -108,14 +113,14 @@
 													<input class='hidden' type='submit' id='user%dbooks'/>
 													<label for='user%dbooks' class='form-button'>Books</label>
 												</form>
-												<form class='account-form' action='inc/deleteuser.php'>
+												<form class='account-form' action='inc/delete-user.php'>
 													<input class='hidden' type='text' name='email' value='%s'/>
 													<input class='hidden' type='text' name='return' value='admin.php?display=users'/>
 													<input class='hidden' type='submit' id='user%ddelete'/>
 													<label for='user%ddelete' class='form-button-red'>Delete</label>
 												</form>
 											</div>
-										</div>", $email, $name, $email, $i, $i, $email, $i, $i, $email, $i, $i);
+										</div>", $email, $name, $email, $i, $i, $email, $i, $i, $email, $i, $i, $email, $i, $i);
 									}
 							echo '</div>';
 						}

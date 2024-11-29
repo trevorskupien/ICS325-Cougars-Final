@@ -54,9 +54,10 @@ function getUser($femail){
 	return $user;
 }
 
+//get session account, but reconfirm with database
 function getSessionAccount(){
 	if(session_status() == PHP_SESSION_ACTIVE && isset($_SESSION['account'])){
-		return $_SESSION['account'];
+		return getUser($_SESSION['account']['email']);
 	}else{
 		return null;
 	}
@@ -111,4 +112,35 @@ function getUsers() {
 
     mysqli_close($db);
     return $users;
+}
+
+function getAccountStats($femail){
+	include_once "blog_data.php";
+	include_once "book_data.php";
+	
+	$account = getUser($femail);
+	if(!$account){
+		return null;
+	}
+	
+	$stats = [];
+	$blogs = getBlogs(null, null, $femail);
+	$books = getBooks(null, null, $femail);
+	
+	$stats["blog_count"] = count($blogs);
+	$stats["book_count"] = count($books);
+	
+	$coverage_arr = array_fill(0, 26, false);
+	$coverage = 0;
+	foreach($blogs as $blog){
+		$title = $blog["title"];
+		$coverage_arr[ord($title[0]) - ord('A')] = true;
+	}
+	for($i = 0; $i < 26; $i++){
+		if($coverage_arr[$i])
+			$coverage++;
+	}
+	
+	$stats["coverage"] = $coverage;
+	return $stats;
 }

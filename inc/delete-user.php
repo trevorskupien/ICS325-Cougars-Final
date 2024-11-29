@@ -1,6 +1,8 @@
 <?php
 	include "account.php";
 	include "db.php";
+	include "book_data.php";
+	include "blog_data.php";
 	
 	if(!isset($_GET["email"])){
 		header('Location: ../index.php');
@@ -18,12 +20,14 @@
 	$current_user = $_SESSION["account"]["email"];
 
 	if($_SESSION["account"]["role"] != "admin" && strcmp($current_user, $email)){
-		header('Location: ../book.php?id=' . $id);
+		header('Location: ../index.php');
 		exit;
 	}
 	
 	//continue with deletion
-	deleteUser($id);
+	deleteUserBlogs($email);
+	deleteUserBooks($email);
+	deleteUser($email);
 		
 	if($current_user == $email){
 		logout();

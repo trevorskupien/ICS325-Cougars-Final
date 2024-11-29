@@ -242,3 +242,15 @@ function getBookThumbnail($fbook_id, $faccount){
 	
 	return "default.png";
 }
+
+function deleteUserBooks($femail){
+	$books = getBooks(null, null, $femail);
+	foreach($books as $book)
+		deleteBook($book["book_id"]);
+}
+
+function setBooksPublic($femail, $fpublic){
+	$books = getBooks(null, null, $femail);
+	foreach($books as $book)
+		createBook($book["book_id"], $book["creator_email"], $book["title"], $fpublic ? "public" : "private");
+}

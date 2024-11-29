@@ -13,7 +13,7 @@ Issues: 1.
   - Ensure the blog title starts with a specific letter or number. (It can not start with a symbol; During the sorting, we will keep the numbered titles at the front)
   - Check for the correct assignment of a default photo when no upload is made.
 
-Status: [ ] Passing  [ x] Failing
+Status: [X ] Passing  [] Failing
 Issues: 1. Blogs cannot start with number
         2.
         3.
@@ -71,7 +71,7 @@ Issues: 1. Not implemented
   - Validate that the admin can view a status report of all blogs created by users (for example, has a user has all 26 letters covered?)
 
 
-Status: [ ] Passing  [x ] Failing
+Status: [X ] Passing  [ ] Failing
 Issues: 1. User letter coverage
         2.
         3.

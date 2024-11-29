@@ -180,3 +180,21 @@ function deleteBlog($fid){
 	mysqli_stmt_execute($stmt);
 	mysqli_close($db);
 }
+
+function deleteUserBlogs($femail){
+	$blogs = getBlogs(null, null, $femail);
+	foreach($blogs as $blog)
+		deleteBlog($blog["blog_id"]);
+}
+
+function setBlogsPublic($femail, $fpublic){
+	$blogs = getBlogs(null, null, $femail);
+	foreach($blogs as $blog)
+		postBlog($blog["blog_id"],
+				 $blog["event_date"],
+				 $blog["creator_email"],
+				 $blog["title"],
+				 $blog["description"],
+				 $fpublic ? "public" : "private",
+				 $blog["image"]);
+}

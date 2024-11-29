@@ -38,6 +38,10 @@
 		<?php
 			if(isset($_SESSION["account"])){
 				echo '
+					<form class="account-form" action="profile">
+						<input class="hidden" type="submit" id="profile"/>
+						<label for="profile" class="form-button">Your Profile</label>
+					</form>
 					<form class="account-form" action="inc/signout">
 						<input class="hidden" type="submit" id="logout"/>
 						<label for="logout" class="form-button">Logout</label>

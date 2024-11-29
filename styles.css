@@ -10,6 +10,7 @@
 	--yellow: #ffb900;
 	--green: #107c10;
 	--light-green: #AEDD94;
+	--dull-green: #DDFFDD; 
 	--selected-green: #89DB59;
 	--theme-primary: #91E4FB;
 	--theme-secondary: #D4E3FC;
@@ -89,6 +90,10 @@ body{
 	margin-bottom: 25px;
 }
 
+.form-space{
+	margin-left: 50px;
+}
+
 .form-select, .form-span, .form-calendar{
 	padding: 5px;
 }
@@ -131,7 +136,7 @@ body{
 	flex-grow: 1;
 }
 
-.form-button, .form-toggle, .form-button-inline, .form-button-red{
+.form-button, .form-toggle, .form-button-inline, .form-button-selected, .form-button-red{
 	cursor: pointer;
 	user-select: none;
 	font-size: 18px;
@@ -146,6 +151,10 @@ body{
 
 .form-button-red{
 	background-color: var(--red);
+}
+
+.form-button-selected{
+	background-color: var(--selected-green);
 }
 
 .form-button-inline{
@@ -212,7 +221,7 @@ input:checked + .form-toggle::before{
 	content: "Public";
 }
 
-#blogs-container, #tables-container{
+#blogs-container, #tables-container, #admin-container{
     flex-flow: row wrap;
     justify-content: space-between;
 	margin-left: 50px;
@@ -225,6 +234,11 @@ input:checked + .form-toggle::before{
 
 #blogs-container{
 	display: flex;
+}
+
+#admin-container{
+	display: flex;
+	min-width: 800px;
 }
 
 #blogs-container::after{
@@ -480,6 +494,7 @@ html, body {
 }
 
 .admin-table{
+	width: 100%;
 	display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
@@ -514,6 +529,18 @@ html, body {
     object-fit: contain;
 }
 
+.profile-info{
+	width: 100%;
+}
+
+.profile-header, .profile-sub{
+	display: inline;
+}
+
+.profile-footer{
+	margin-top: 25px;
+	margin-bottom: 5px;
+}
 /* Fading animation */
 .fade {
   animation-name: fade;
