@@ -19,13 +19,18 @@
 	$id = $_GET["id"];
 	$blog = getBookById($id);
 	
-	if(strcmp($current_user, $blog["creator_email"])){
+	if($_SESSION["account"]["role"] != "admin" && strcmp($current_user, $blog["creator_email"])){
 		header('Location: ../book.php?id=' . $id);
 		exit;
 	}
 	
 	//continue with deletion
 	deleteBook($id);
+	
+	if(isset($_GET["return"])){
+		header('Location: ../' . $_GET["return"]);
+		exit;
+	}
 	
 	header('Location: ../books.php');
 	exit;

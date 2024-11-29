@@ -62,6 +62,15 @@ function getSessionAccount(){
 	}
 }
 
+function deleteUser($femail){
+	include 'db.php';
+	$stmt = mysqli_stmt_init($db);
+	mysqli_stmt_prepare($stmt, "DELETE FROM users WHERE email=?");
+	mysqli_stmt_bind_param($stmt, "s", $femail);
+	mysqli_stmt_execute($stmt);
+	mysqli_close($db);
+}
+
 function logout(){
 	unset($_SESSION['account']);
 	session_destroy();

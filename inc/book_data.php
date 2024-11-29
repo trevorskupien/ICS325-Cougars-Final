@@ -1,5 +1,6 @@
 <?php
-function getBooks($search = null, $filter = null) {
+
+function getBooks($search = null, $filter = null, $user = null) {
     include "db.php";
 
     // Base query
@@ -8,7 +9,7 @@ function getBooks($search = null, $filter = null) {
     $types = "";
 
     // Add search and filter conditions
-    if ($search || $filter) {
+    if ($search || $filter || $user) {
         $query .= " WHERE";
         $conditions = [];
 
@@ -25,7 +26,13 @@ function getBooks($search = null, $filter = null) {
             $params[] = $filter;
             $types .= "s";
         }
-
+		
+		if($user){
+			$conditions[] = "creator_email = ?";
+			$params[] = $user;
+			$types .= "s";
+		}
+		
         $query .= " " . implode(" AND ", $conditions);
     }
 
@@ -43,6 +50,25 @@ function getBooks($search = null, $filter = null) {
 
     if (mysqli_num_rows($result) > 0) {
         while ($book = mysqli_fetch_assoc($result)) {
+			$book_arr = [];
+			$total = 0;
+			for($i = ord('A'); $i <= ord('Z'); $i++){
+				$letter = chr($i);
+				if(isset($book[$letter])){
+					//check for deleted blogs and unset them
+					$blog = getBlogById($book[$letter]);
+					if(!$blog)
+					clearBookSlot($book_id, $letter);
+
+					$book_arr[] = $book[$letter];
+					$total++;
+				}else{
+					$book_arr[] = NULL;
+				}
+			}
+			
+			$book["list"] = $book_arr;
+			$book["total"] = $total;
             $books[] = $book;
         }
     }
@@ -129,6 +155,7 @@ function getBookById($book_id) {
 	
 	$book["list"] = $book_arr;
 	$book["total"] = $total;
+	
 	return $book;
 }
 

@@ -29,7 +29,7 @@
 		$account = getSessionAccount();
 		$blog = getBlogById($blog_id);
 
-		if (!$blog || !$account || $account["email"] !== $blog["creator_email"]) {
+		if (!$blog || !$account || ($_SESSION["account"]["role"] != "admin" && $_SESSION["account"]["email"] != $alphabet["creator_email"])) {
 			header('Location: index.php');
 			exit;
 		}
@@ -80,6 +80,13 @@
 							<select id="title-letter" name="title-letter" class="form-select">
 								<?php
 								echo $letter;
+									for($i = 0; $i <= 9; $i = $i + 1){
+										echo "<option value='";
+										echo $i. "' ";
+										if($editing)
+											echo $letter == $i ? "selected='selected'" : "";
+										echo ">" . $i . "</option>";
+									}
 									for($i = ord('A'); $i <= ord('Z'); $i = $i + 1){
 										echo "<option value='";
 										echo chr($i). "' ";
@@ -99,8 +106,8 @@
 									echo $title;
 								}
 							?>" required></input>
-							<input id="date" class="form-date" type="text" placeholder="<?php echo date("d-m-Y") ?>" readonly="readonly"></input>
-							
+							<!---stupid hack--->
+							<input id="date" class="form-date" type="text" name="date" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo $editing ? $blog['date'] : date("Y-m-d")?>" required></input>
 							<div class="form-button-container">
 								<label for="image" class="form-button-inline" id="upload"><?php echo $editing ? "Replace Image" : "Choose Image"; ?> </label>				
 								<input class="hidden" type="file" id="image" name="image"></input>

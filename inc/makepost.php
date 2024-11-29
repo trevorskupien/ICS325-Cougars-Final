@@ -15,24 +15,26 @@
 	$content = $_POST["post-content"];
 	$public = isset($_POST["public"]) ? "public" : "private";
 	$filename = $_FILES["image"]["name"];
-	
+	$date = $_POST["date"];
+
 	//make final title
 	$title = $letter . " for " . $title;
-	
+
+	$target_file = "";
+		
 	if(isset($_POST["id"])){
 		$blog_id = $_POST["id"];
 		$blog = getBlogById($blog_id);
-		if(!$blog || $blog["creator_email"] != $author){
+		if(!$blog || ($_SESSION["account"]["role"] != "admin" && $blog["creator_email"] != $author)){
 			//attempting to edit a blog unknowned or nonexistant
 			header('Location: ../index.php');
 			exit;
 		}
+		
+		$target_file = $blog["image"];
 	}else{
 		$blog_id = getNewBlogID();
 	}
-	
-	$target_file = "";
-	$date = date("Y:m:d H:i:s");
 	
 	//upload image file if exists
 	if($filename){

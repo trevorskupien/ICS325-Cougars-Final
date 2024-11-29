@@ -1,5 +1,5 @@
 <?php
-function getBlogs($search = null, $filter = null) {
+function getBlogs($search = null, $filter = null, $user = null) {
     include "db.php";
 
     // Base query
@@ -8,7 +8,7 @@ function getBlogs($search = null, $filter = null) {
     $types = "";
 
     // Add search and filter conditions
-    if ($search || $filter) {
+    if ($search || $filter || $user) {
         $query .= " WHERE";
         $conditions = [];
 
@@ -25,7 +25,13 @@ function getBlogs($search = null, $filter = null) {
             $params[] = $filter;
             $types .= "s";
         }
-
+		
+		if($user){
+			$conditions[] = "creator_email = ?";
+			$params[] = $user;
+			$types .= "s";
+		}
+		
         $query .= " " . implode(" AND ", $conditions);
     }
 

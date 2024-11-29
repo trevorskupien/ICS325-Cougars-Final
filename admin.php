@@ -20,9 +20,33 @@
     $account = getSessionAccount();
     $email = $account ? $account["email"] : "";
 	
-	$users = getUsers();
-	$blogs = getBlogs(null, null);
-	$books = getBooks(null, null);
+	$display = isset($_GET["display"]) ? $_GET["display"] : "users";
+	$for = isset($_GET["for"]) ? $_GET["for"] : null;
+	
+	if($display == "users"){
+		$users = getUsers();
+	}
+	
+	if($display == "blogs"){
+		$blogs = getBlogs(null, null, $for);
+		
+		//please stop
+		$coverage_arr = array_fill(0, 26, false);
+		$coverage = 0;
+		foreach($blogs as $blog){
+			$title = $blog["title"];
+			$coverage_arr[ord($title[0]) - ord('A')] = true;
+		}
+		for($i = 0; $i < 26; $i++){
+			if($coverage_arr[$i])
+				$coverage++;
+		}
+	}
+	
+	if($display == "books"){
+		$books = getBooks(null, null, $for);
+	}
+	
 ?>
 
 <html>
@@ -42,90 +66,128 @@
 				<div class="section-header">
 					<h1 class="section-title">Admin</h1>
 					<div class="inline-buttons">
-						<button id="users-button" onClick="toggleElement(0);" class="form-button">Users</button>
-						<button id="blogs-button" onClick="toggleElement(1);" class="form-button">Blogs</button>
-						<button id="books-button" onClick="toggleElement(2);" class="form-button">Books</button>
+						<form class='account-form' action='admin.php'>
+							<input class='hidden' type='text' name='display' value='users'/>
+							<input class='hidden' type='submit' id='allusers'/>
+							<label for='allusers' class='form-button'>All Users</label>
+						</form>
+						<form class='account-form' action='admin.php'>
+							<input class='hidden' type='text' name='display' value='blogs'/>
+							<input class='hidden' type='submit' id='allblogs'/>
+							<label for='allblogs' class='form-button'>All Blogs</label>
+						</form>
+						<form class='account-form' action='admin.php'>
+							<input class='hidden' type='text' name='display' value='books'/>
+							<input class='hidden' type='submit' id='allbooks'/>
+							<label for='allbooks' class='form-button'>All Books</label>
+						</form>
 					</div>
 				</div>
 	
-				<div id="tables-container">
-					<table id="users-table">
-						<thead>
-							<tr>
-								<th>Email</th>
-								<th>Name</th>
-								<th>Role</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								foreach($users as $user){
-									printf('
+				<div id="blogs-container">
+					<?php
+						if($display == "users"){
+							echo '<div id="user-table" class="admin-table">';
+									for($i = 0; $i < count($users); $i++){
+										$user = $users[$i];
+										$email = $user["email"];
+										$name = $user["name"];
+										printf("
+										<div class='admin-element-container'>
+											<p><b>%s</b>; %s</p>
+											<div class='inline-buttons'>
+												<form class='account-form' action='admin.php'>
+													<input class='hidden' type='text' name='display' value='blogs'/>
+													<input class='hidden' type='text' name='for' value='%s'/>
+													<input class='hidden' type='submit' id='user%dblogs'/>
+													<label for='user%dblogs' class='form-button'>Blogs</label>
+												</form>
+												<form class='account-form' action='admin.php'>
+													<input class='hidden' type='text' name='display' value='books'/>
+													<input class='hidden' type='text' name='for' value='%s'/>
+													<input class='hidden' type='submit' id='user%dbooks'/>
+													<label for='user%dbooks' class='form-button'>Books</label>
+												</form>
+												<form class='account-form' action='inc/deleteuser.php'>
+													<input class='hidden' type='text' name='email' value='%s'/>
+													<input class='hidden' type='text' name='return' value='admin.php?display=users'/>
+													<input class='hidden' type='submit' id='user%ddelete'/>
+													<label for='user%ddelete' class='form-button-red'>Delete</label>
+												</form>
+											</div>
+										</div>", $email, $name, $email, $i, $i, $email, $i, $i, $email, $i, $i);
+									}
+							echo '</div>';
+						}
+					?>
+					
+					<?php
+						if($display == "blogs"){
+							printf("<p>Alphabet Coverage: %d/26</p>", $coverage);
+							echo '<div id="blog-table" class="admin-table">';
+									for($i = 0; $i < count($blogs); $i++){
+										$blog = $blogs[$i];
+										$email = $blog["creator_email"];
+										$id = $blog["blog_id"];
+										$image = $blog["image"];
+										$title = $blog["title"];
 
-										<tr href="pee">
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-										</tr>
-									', $user["email"], $user["name"], $user["role"]);
-								}
-							?>
-						</tbody>
-					</table>
+										printf("
+										<div class='admin-element-container'>
+											<div class='admin-thumbnail-container'>
+												<img src='images/%s'></img>
+											</div>
+											<p>[%d] %s, %s</p>
+											<div class='inline-buttons'>
+												<form class='account-form' action='blog.php'>
+													<input class='hidden' type='text' name='id' value='%d'/>
+													<input class='hidden' type='submit' id='blog%dview'/>
+													<label for='blog%dview' class='form-button'>View</label>
+												</form>
+												<form class='account-form' action='inc/deletepost.php'>
+													<input class='hidden' type='text' name='id' value='%d'/>
+													<input class='hidden' type='text' name='return' value='admin.php?display=blogs'/>
+													<input class='hidden' type='submit' id='blog%ddelete'/>
+													<label for='blog%ddelete' class='form-button-red'>Delete</label>
+												</form>
+											</div>
+										</div>", $image == "" ? "default.png" : $image, $id, $title, $email, $id, $i, $i, $id, $i, $i);
+									}
+							echo '</div>';
+						}
+					?>
 					
-					<table id="blogs-table">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Creator Email</th>
-								<th>Title</th>
-								<th>Date</th>
-								<th>Privacy</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								foreach($blogs as $blog){
-									printf('
-										<tr>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-										</tr>
-									', $blog["blog_id"], $blog["creator_email"], $blog["title"], $blog["event_date"], $blog["privacy_filter"]);
-								}
-							?>
-						</tbody>
-					</table>
-					
-					<table id="books-table">
-						<thead>
-							<tr>
-								<th>ID</th>
-								<th>Creator Email</th>
-								<th>Title</th>
-								<th>Completion</th>
-								<th>Privacy</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-								foreach($books as $book){
-									printf('
-										<tr>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-											<th>%s</th>
-										</tr>
-									', $book["book_id"], $book["creator_email"], $book["title"], "0/0", $book["privacy_filter"]);
-								}
-							?>
-						</tbody>
-					</table>
+					<?php
+						if($display == "books"){
+							echo '<div id="book-table" class="admin-table">';
+									for($i = 0; $i < count($books); $i++){
+										$book = $books[$i];
+										$email = $book["creator_email"];
+										$id = $book["book_id"];
+										$title = $book["title"];
+										$total = $book["total"];
+
+										printf("
+										<div class='admin-element-container'>
+											<p>[%d] [%s / 26] %s, %s</p>
+											<div class='inline-buttons'>
+												<form class='account-form' action='book.php'>
+													<input class='hidden' type='text' name='id' value='%d'/>
+													<input class='hidden' type='submit' id='book%dview'/>
+													<label for='book%dview' class='form-button'>View</label>
+												</form>
+												<form class='account-form' action='inc/delete-book.php'>
+													<input class='hidden' type='text' name='id' value='%d'/>
+													<input class='hidden' type='text' name='return' value='admin.php?display=books'/>
+													<input class='hidden' type='submit' id='book%ddelete'/>
+													<label for='book%ddelete' class='form-button-red'>Delete</label>
+												</form>
+											</div>
+										</div>", $id, $total, $title, $email, $id, $i, $i, $id, $i, $i);
+									}
+							echo '</div>';
+						}
+					?>
 				</div>
 			</div>
 		</div>
@@ -133,26 +195,5 @@
 			<p>Fall 2024 ICS 325-50 Team Cougars</p>
 		</div>
 	</div>
-	<script>
-		var tabs = ["users-table_wrapper", "blogs-table_wrapper", "books-table_wrapper"];
-		var buttons = ["users-button", "blogs-button", "books-button"];
-		
-		function toggleElement(i){
-			for(var j = 0; j < 3; ++j){
-				document.getElementById(tabs[j]).hidden = true;
-				document.getElementById(buttons[j]).className = "form-button-red";
-			}
-			
-			document.getElementById(tabs[i]).hidden = false;
-			document.getElementById(buttons[i]).className = "form-button";
-		}
-		
-		$(document).ready(function() {
-			new DataTable('#users-table');
-			new DataTable('#blogs-table');
-			new DataTable('#books-table');
-			toggleElement(0);
-		});
-	</script>
 </body>
 </html>
