@@ -50,8 +50,8 @@ Issues: 1.
   - Verify the functionality of searching, sorting, filtering (based on a word in the title or description) of blogs
 
 
-Status: [ ] Passing  [X ] Failing
-Issues: 1. No sort options
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
         2.
         3.
 
@@ -60,8 +60,8 @@ Issues: 1. No sort options
   - Ensure users have access to a dashboard showing created blogs and progress on alphabetical entries.
 
 
-Status: [ ] Passing  [X ] Failing
-Issues: 1. Not implemented
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
         2.
         3.
 
@@ -82,8 +82,8 @@ Issues: 1. User letter coverage
    - Validate that a user can make all their blogs public or private with one-click action.
 
 
-Status: [ ] Passing  [x ] Failing
-Issues: 1. One click option
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
         2. 
         3. 
 
@@ -113,8 +113,8 @@ Issues: 1.
    - Confirm that logged-in users can view their blogs, edit, and delete them if they are the owner.
 
 
-Status: [ ] Passing  [X ] Failing
-Issues: 1. not implemented
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
         2.
         3.
 
@@ -127,8 +127,8 @@ Issues: 1. not implemented
   - Validate that the admin can view the list of registered users and can perform CRUD functionality.
 
 
-Status: [ ] Passing  [x ] Failing
-Issues: 1. Admin delete functionality
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
         2.
         3.
 
