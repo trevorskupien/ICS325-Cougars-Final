@@ -36,7 +36,7 @@
 					<!-- Back to My Blogs Link at the Bottom -->
 					<div class="inline-buttons">
 						<?php
-							if(isset($account) && $account["email"] == $blog["creator_email"]){
+							if(isset($account) && ($account["role"] == "admin" || $account["email"] == $blog["creator_email"])){
 								if(isset($_GET["confirmdelete"])){
 									printf("
 									<form class='account-form' action='inc/deletepost.php'>

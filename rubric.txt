@@ -1,0 +1,145 @@
+High-Level End Use Cases and evaluation criteria (160 points)
+
+1. User Registration and Login (16 points)
+  - Ensure users can successfully register and log in with an email and password.
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+2. Blog Post Creation (20 points)
+  - Verify that registered users can create a blog post with required fields (title, description, photo upload, privacy flag, event date).
+  - Ensure the blog title starts with a specific letter or number. (It can not start with a symbol; During the sorting, we will keep the numbered titles at the front)
+  - Check for the correct assignment of a default photo when no upload is made.
+
+Status: [X ] Passing  [] Failing
+Issues: 1. Blogs cannot start with number
+        2.
+        3.
+
+3. Alphabetical Blog Compilation (12 points)
+  - Confirm users can view and access blogs sorted alphabetically.
+
+Status: [X] Passing  [] Failing
+Issues: 1. 
+        2. 
+        3. 
+
+
+4. Chronological Blog Compilation (12 points)
+  - Confirm users can view and access blogs sorted chronologically by event date.
+
+Status: [ ] Passing  [x ] Failing
+Issues: 1. Not implemented
+        2.
+        3.
+
+
+5. Creation of Alphabet Book (16 points)
+  - Validate that users can create and view custom "Alphabet Books" and see progress bars for completion. The front page of the "Alphabet Book" should show an index page showing the title and the page number.
+  - Validate that users can create the "Alphabet Books" with only some or all of the blogs they created.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+6. Search and Filter Options (12 points)
+  - Verify the functionality of searching, sorting, filtering (based on a word in the title or description) of blogs
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+
+7. Interactive User Dashboard (12 points)
+  - Ensure users have access to a dashboard showing created blogs and progress on alphabetical entries.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+8. Admin Dashboard (8 points)
+  - Validate that the admin can view a summary report of all blogs created by users.
+
+  - Validate that the admin can view a status report of all blogs created by users (for example, has a user has all 26 letters covered?)
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1. User letter coverage
+        2.
+        3.
+
+9. Sharing and Collaboration (12 points)
+   - Confirm the ability for users to set blogs to private or public and share specific blogs.
+
+   - Validate that a user can make all their blogs public or private with one-click action.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2. 
+        3. 
+
+10. Download or Print Feature (12 points)
+   - Ensure users can successfully export or print their Alphabet Book or chronological blog collection in PDF format (using the browser print button).
+
+   - Validate that the book has ' table of contents' at the beginning (with the page numbers) and each blog starts on a new page. Note that some blogs may span multiple pages.
+
+
+Status: [ ] Passing  [x ] Failing
+Issues: 1. not implemented
+        2.
+        3.
+
+11. Home Page Visitor View (8 points)
+   - Validate the home page displays all public blogs sorted in reverse chronological order with sorting options.
+
+   - Validate that visitors can get a detailed view of a blog by clicking it.
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1. 
+        2.
+        3.
+
+
+12. My Blogs Page for Logged-in Users (8 points)
+   - Confirm that logged-in users can view their blogs, edit, and delete them if they are the owner.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+
+13. Admin User and Blog Management (16 points)
+   - Validate that admins can manage users and blogs, including deletion of users or blogs.
+
+  - Validate that the users can view the list of all the blogs (created by all users) and can perform CRUD functionality (for example, admin can remove or fix offensive entries)
+
+  - Validate that the admin can view the list of registered users and can perform CRUD functionality.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.
+
+
+14. Visual Appeal (8 points)
+
+Validate that logo, menu bar, footer, headers, colors schemes are consistent across all the pages.
+Validate that there are no dead or broken links.
+
+
+Status: [X ] Passing  [ ] Failing
+Issues: 1.
+        2.
+        3.

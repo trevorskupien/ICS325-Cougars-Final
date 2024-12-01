@@ -17,7 +17,7 @@
 	if(isset($_POST["id"])){
 		$book_id = $_POST["id"];
 		$book = getBookById($book_id);
-		if(!$book || $book["creator_email"] != $author){
+		if(!$book || ($_SESSION["account"]["role"] != "admin" && $book["creator_email"] != $author)){
 			//attempting to edit a blog unknowned or nonexistant
 			header('Location: ../index.php');
 			exit;

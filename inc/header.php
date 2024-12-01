@@ -16,6 +16,16 @@
 			<input class="hidden" type="submit" id="books"/>
 			<label for="books" class="form-button">Alphabet Books</label>
 		</form>
+		<?php			
+			if(isset($_SESSION["account"]) && $_SESSION["account"]["role"] == "admin"){
+				echo '
+					<form class="account-form" action="admin">
+						<input class="hidden" type="submit" id="admin"/>
+						<label for="admin" class="form-button">Admin Console</label>
+					</form>
+					';
+			}
+		?>
 	</div>
 	<div class="inline-buttons" id="account-box">
 		<p>
@@ -28,6 +38,10 @@
 		<?php
 			if(isset($_SESSION["account"])){
 				echo '
+					<form class="account-form" action="profile">
+						<input class="hidden" type="submit" id="profile"/>
+						<label for="profile" class="form-button">Your Profile</label>
+					</form>
 					<form class="account-form" action="inc/signout">
 						<input class="hidden" type="submit" id="logout"/>
 						<label for="logout" class="form-button">Logout</label>

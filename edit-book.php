@@ -24,7 +24,7 @@
 	$alphabet = getBookById($_GET['id']);
 	$title = $alphabet["title"];
 		
-	if($_SESSION["account"]["email"] != $alphabet["creator_email"])
+	if(!$alphabet || ($_SESSION["account"]["role"] != "admin" && $_SESSION["account"]["email"] != $alphabet["creator_email"]))
 	{
 		header('Location: login.php');
 		exit;
