@@ -93,7 +93,7 @@ Issues: 1.
    - Validate that the book has ' table of contents' at the beginning (with the page numbers) and each blog starts on a new page. Note that some blogs may span multiple pages.
 
 
-Status: [ ] Passing  [x ] Failing
+Status: [X ] Passing  [ ] Failing
 Issues: 1. not implemented
         2.
         3.
