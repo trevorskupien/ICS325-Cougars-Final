@@ -78,6 +78,9 @@
 							}
 						
 						?>
+						<!-- Export All Blogs Button -->
+                        <a href="print-collection.php" class="form-button">Print Blogs Collection</a>
+
 					</div>
 				</div>
 
@@ -115,6 +118,7 @@
 										<p class='blog-thumbnail-title'>%s</p>
 										<p class='blog-thumbnail-title'>By %s %s</p>
 									</a>
+									
 								</div>",
 								htmlspecialchars(isset($_GET["add-to"]) ? "edit-book.php?id=" . $_GET["add-to"] . "&add-blog=" . $blog["blog_id"] : "blog.php?id=" . $blog["blog_id"]),
 								htmlspecialchars(getBlogImage($blog)),

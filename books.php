@@ -12,8 +12,6 @@
     // Handle search and filter inputs
     $search = isset($_GET['search']) ? trim($_GET['search']) : null;
     $filter = isset($_GET['filter']) && in_array($_GET['filter'], ['public', 'private']) ? $_GET['filter'] : null;
-    $start_date = isset($_GET['start_date']) ? trim($_GET['start_date']) : null;
-    $end_date = isset($_GET['end_date']) ? trim($_GET['end_date']) : null;
 
     // Get the current user's account and email
     $account = getSessionAccount();
@@ -43,7 +41,7 @@
 							<input class="form-text-inline" type="text" name="search" id="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
 
 							<label class="form-text" for="filter">Privacy:</label>
-							<select class="form-select" .form-selectname="filter" id="filter">
+							<select class="form-select" name="filter" id="filter">
 								<option value="">All</option>
 								<option value="public" <?= (isset($_GET['filter']) && $_GET['filter'] === 'public') ? 'selected' : '' ?>>Public</option>
 								<option value="private" <?= (isset($_GET['filter']) && $_GET['filter'] === 'private') ? 'selected' : '' ?>>Private</option>
@@ -55,8 +53,13 @@
 					</div>
 					
 					<div class="inline-buttons">
-						<!-- Search and Filter Form -->
+						<!-- Export and Create Book Buttons -->
 						<div class="form-stretch"></div>
+
+						<!-- Export link with parameters for search and filter -->
+						<a href="export.php?search=<?= urlencode($search) ?>&filter=<?= urlencode($filter) ?>" class="form-button">Print Alphabet Books</a>
+
+						<!-- New Alphabet Book Button -->
 						<form action="create-book">
 							<input class="hidden" type="submit" id="newbook"/>
 							<label for="newbook" class="form-button">New Alphabet Book</label>
@@ -88,12 +91,12 @@
 									$name = "You";
 								}
 
-								// Build blog entry with a link to view details
+								// Build book entry with a link to view details
 								printf("
 								<div class='blog-container'>
 									<a class='no-decoration' href='book.php?id=%s'>
 										<div class='blog-thumbnail-container'>
-											<img src='images/%s' alt='Blog Image'>
+											<img src='images/%s' alt='Book Image'>
 										</div>
 										<p class='blog-thumbnail-title'>%s</p>
 										<p class='blog-thumbnail-title'>By %s %s</p>
