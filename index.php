@@ -19,7 +19,11 @@
     $email = $account ? $account["email"] : "";
 
     // Fetch blogs based on search, filter, and date range criteria
-    $blogs = getUserBlogs($email, $search, $filter, $start_date, $end_date);
+	$sort = "";
+	if(isset($_GET["sort"]) && $_GET["sort"] == 'date')
+		$sort = "date";
+	
+    $blogs = getUserBlogs($email, $search, $filter, $start_date, $end_date, $sort);
 ?>
 
 <html>
@@ -61,6 +65,25 @@
 							<button id="filterbutton" class="hidden" type="submit"></button>
 							<label for="filterbutton" class="form-button">Filter</label>
 						</form>
+						
+						<form method="GET" action="">
+							<?php
+								if(isset($_GET["add-to"]))
+									printf('<input class="hidden" name="add-to" value="%s"></input>', $_GET["add-to"]);
+							?>
+							<input class="hidden" type="text" name="sort" value="<?php
+								if(isset($_GET["sort"]) && $_GET["sort"] == "date")
+									echo "alpha";
+								else
+									echo "date";?>"></input>
+							<button id="sort" class="hidden" type="submit"></button>
+							<label for="sort" class="form-button"><?php
+								if(isset($_GET["sort"]) && $_GET["sort"] == "date")
+									echo "Sort Alphabet";
+								else
+									echo "Sort Date";
+							?></label>
+						</form>
 					</div>
 					
 					<div class="inline-buttons">
@@ -74,7 +97,7 @@
 									<label for="back" class="form-button">Back to Book</label>
 								</form>', $_GET["add-to"]);
 							}else{
-								echo '<a href="print-collection.php" class="no-decoration form-button">Print Blogs Collection</a>';
+								echo '<a href="print-collection.php" class="no-decoration form-button">Print</a>';
 								echo '
 								<form action="edit-blog">
 									<input class="hidden" type="submit" id="newblog"/>
