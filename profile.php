@@ -144,6 +144,13 @@
 					
 					<?php
 						if($display == "blogs"){
+							printf('
+							<div class="progress-container">
+								<div class="progress-fill" style="width: calc(100%% * %d/26);"></div>
+								<span class="progress-report">Progress: %d/ 26</span>
+							</div>',
+							$stats["coverage"], $stats["coverage"]);
+							
 							if (empty($blogs)) {
 								echo "<p>No blogs found matching your criteria.</p>";
 							} else {
