@@ -57,7 +57,7 @@ function getBlogs($search = null, $filter = null, $user = null) {
     return $blogs;
 }
 
-function getUserBlogs($fauthor, $search = null, $filter = null, $start_date = null, $end_date = null) {
+function getUserBlogs($fauthor, $search = null, $filter = null, $start_date = null, $end_date = null, $sort = null) {
     include "db.php";
 
     // Start building the query
@@ -70,6 +70,11 @@ function getUserBlogs($fauthor, $search = null, $filter = null, $start_date = nu
 	}else{
 		$query = "SELECT * FROM blogs WHERE (privacy_filter = 'public' OR creator_email = ?)";
 	}
+	
+	if($sort == "date"){
+		$query = $query . "ORDER BY event_date";
+	}
+	
     $types = "s";
     $params = [$fauthor];
 
