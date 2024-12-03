@@ -288,6 +288,9 @@ table tr:nth-child(even) td{
 	align-items: center;
 }
 
+.inline-buttons-right{
+	margin-right: 10px;
+}
 .inline-buttons .form-toggle{
 	
 }

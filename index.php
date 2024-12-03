@@ -70,6 +70,7 @@
 									<label for="back" class="form-button">Back to Book</label>
 								</form>', $_GET["add-to"]);
 							}else{
+								echo '<a href="print-collection.php" class="no-decoration form-button">Print Blogs Collection</a>';
 								echo '
 								<form action="edit-blog">
 									<input class="hidden" type="submit" id="newblog"/>
@@ -78,9 +79,6 @@
 							}
 						
 						?>
-						<!-- Export All Blogs Button -->
-                        <a href="print-collection.php" class="form-button">Print Blogs Collection</a>
-
 					</div>
 				</div>
 

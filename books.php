@@ -57,7 +57,7 @@
 						<div class="form-stretch"></div>
 
 						<!-- Export link with parameters for search and filter -->
-						<a href="export.php?search=<?= urlencode($search) ?>&filter=<?= urlencode($filter) ?>" class="form-button">Print Alphabet Books</a>
+						<a href="export.php?search=<?= urlencode($search) ?>&filter=<?= urlencode($filter) ?>" class="form-button no-decoration">Print Alphabet Books</a>
 
 						<!-- New Alphabet Book Button -->
 						<form action="create-book">
