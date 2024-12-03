@@ -38,6 +38,10 @@
 					<h1 class="section-title">Blogs</h1>
 					<div class="inline-buttons-right">
 						<form method="GET" action="">
+							<?php
+							if(isset($_GET["add-to"]))
+								printf('<input class="hidden" name="add-to" value="%s"></input>', $_GET["add-to"]);
+							?>
 							<label class="form-text" for="search">Title:</label>
 							<input class="form-text-inline" type="text" name="search" id="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
 
