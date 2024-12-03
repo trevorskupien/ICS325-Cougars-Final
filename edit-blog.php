@@ -107,7 +107,7 @@
 								}
 							?>" required></input>
 							<!---stupid hack--->
-							<input id="date" class="form-date" type="text" name="date" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo $editing ? $blog['date'] : date("Y-m-d")?>" required></input>
+							<input id="date" class="form-date" type="text" name="date" onfocus="(this.type='date')" onblur="(this.type='text')" value="<?php echo $editing ? $blog['event_date'] : date("Y-m-d")?>" required></input>
 							<div class="form-button-container">
 								<label for="image" class="form-button-inline" id="upload"><?php echo $editing ? "Replace Image" : "Choose Image"; ?> </label>				
 								<input class="hidden" type="file" id="image" name="image"></input>
