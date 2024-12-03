@@ -65,7 +65,7 @@ function getUserBlogs($fauthor, $search = null, $filter = null, $start_date = nu
 	$user = getUser($fauthor);
 	$query = "";
 	
-	if($user["role"] == "admin"){
+	if($user != null && $user["role"] == "admin"){
 		$query = "SELECT * FROM blogs WHERE (privacy_filter = 'public' OR privacy_filter = 'private' OR creator_email = ?)";
 	}else{
 		$query = "SELECT * FROM blogs WHERE (privacy_filter = 'public' OR creator_email = ?)";
